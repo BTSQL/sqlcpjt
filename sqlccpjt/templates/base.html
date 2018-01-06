@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
+<title>SQL-C</title>
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'css/master.css' %}" />
+<link rel="stylesheet" href="{% static 'css/common.css' %}" />
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/select_auto.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+</head>
+<body>
+<div id="wrap" class="index_wrap"><!-- wrap start -->
+
+<header id="header" class="type2"><!-- header start -->
+
+<div class="header_in"><!-- header_in start -->
+<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
+
+<nav class="gnb_wrap"><!-- gnb_wrap start -->
+<ul class="gnb">
+	<li><a href="#">SQL-C 소개</a></li>
+	<li><a href="{% url 'login' %}">로그인</a></li>
+	<li><a href="#">회원가입</a></li>
+</ul>
+</nav><!-- gnb_wrap end -->
+
+</div><!-- header_in end -->
+
+</header><!-- header end -->
+<hr />
+{% block content %} {% endblock %}
+
+<footer id="footer"><!-- footer start -->
+
+<div class="footer_in"><!-- footer_in start -->
+<p class="f_logo"><img src="{% static 'images/logo_dark.gif' %}" alt="SQL-C" /></p>
+
+<section class="f_left"><!-- f_left start -->
+<ul class="link">
+	<li><a href="#">SQL 담당자 안내</a></li>
+	<li><a href="#">시스템 관련 문의</a></li>
+</ul>
+<address>서울특별시 종로구 종로 26</address>
+</section><!-- f_left end -->
+
+<section class="f_right"><!-- f_right start -->
+<ul class="link">
+	<li><a href="#">서비스 이용약관</a></li>
+	<li><a href="#">개인정보 취급방침</a></li>
+	<li><a href="#">오픈소스 고지문</a></li>
+</ul>
+<p class="copy">COPYRIGHT&copy;2015 BY SK HOLDINGS CO., LTD. ALL RIGHTS RESERVED</p>
+</section><!-- f_right end -->
+
+</div><!-- footer_in end -->
+
+</footer><!-- footer end -->
+<hr />
+
+</div><!-- wrap end -->
+
+</body>
+</html>

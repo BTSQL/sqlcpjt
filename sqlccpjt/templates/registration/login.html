@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
+<title>SQL-C</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/master.css' %}" />
+<link rel="stylesheet" href="{% static 'css/common.css' %}" />
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/select_auto.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+
+</head>
+<body>
+<div id="wrap"><!-- wrap start -->
+
+<div class="login_box"><!-- login_box start -->
+<header>
+<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
+<p class="back"><a href="#">Back</a></p>
+<dl>
+	<dt>아직 회원가입 전이라면?</dt>
+	<dd><p class="btn btn_black"><a href="#">회원가입</a></p></dd>
+</dl>
+</header>
+
+<section class="login"><!-- login start -->
+<form action="#" method="post">
+
+<ul>
+	<li class="mail"><input type="text" title="" placeholder="이메일" /></li>
+	<li class="pass"><input type="password" title="" placeholder="패스워드" /></li>
+	<!-- 입력 안하였을 경우
+	<li class="mail error"><input type="text" title="" placeholder="이메일을 입력해 주세요." /></li>
+	<li class="pass error"><input type="password" title="" placeholder="비밀번호를 입력해 주세요." /></li>
+	-->
+	<li>
+	<label><input type="checkbox" /><span></span><span class="text">이메일 저장</span></label>
+	<p class="btn btn_orange"><a href="#">로그인</a></p>
+	</li>
+</ul>
+
+</form>
+</section><!-- login end -->
+
+<footer>
+<p class="lost_pw"><a href="#">비밀번호를 잊었다면?</a></p>
+</footer>
+</div><!-- login_box end -->
+
+</div><!-- wrap end -->
+
+</body>
+</html>

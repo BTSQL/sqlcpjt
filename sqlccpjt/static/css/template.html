@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
+<title>SQL-C</title>
+<link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="css/simple-line-icons.css" rel="stylesheet" type="text/css"/>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<link href="css/components.css" rel="stylesheet" id="style_components" type="text/css" />
+<link href="css/layout.css" rel="stylesheet" type="text/css" />
+<link href="css/darkblue.css" rel="stylesheet" type="text/css" id="style_color" />
+<link href="css/master.css" rel="stylesheet"/>
+<link href="css/common.css" rel="stylesheet"/>
+<script src="js/jquery.min.js"></script>
+<script src="js/Chart.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/select_auto.js"></script>
+<script src="js/common.js"></script>
+</head>
+<body style="background:none;">
+<div style=" width:1100px; margin:auto;">
+
+<h2 class="level2">타이틀</h2>
+<h2 class="level2_type2">타이틀</h2>
+<h2 class="level2h">타이틀</h2>
+<h3 class="level3">타이틀</h3>
+<h3 class="level3h">타이틀</h3>
+<h4 class="level4">타이틀</h4>
+
+<aside class="blue_title"><!-- blue_title start -->
+<h3>파란색 타이틀바</h3>
+</aside><!-- blue_title end -->
+
+<aside class="sky_title"><!-- blue_title start -->
+<strong>하늘색 타이틀바</strong>
+</aside><!-- blue_title end -->
+
+<br />
+
+<aside class="title_box"><!-- title_box start -->
+<h4 class="level3h">타이틀과 플러스 마이너스 버튼</h4>
+<ul class="plus_btns">
+	<li><p class="btn_plus"><a href="#">Plus</a></p></li>
+	<li><p class="btn_minus"><a href="#">Minus</a></p></li>
+</ul>
+</aside><!-- title_box end -->
+
+<br />
+
+<table class="type1"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:100px" />
+	<col style="width:380px" />
+	<col style="width:380px" />
+	<col style="width:140px" />
+	<col style="width:*" />
+</colgroup>
+<thead>
+<tr>
+	<th scope="col"><label><input type="checkbox" /><span></span></label></th>
+	<th scope="col">테이블</th>
+	<th scope="col">테이블</th>
+	<th scope="col">테이블</th>
+	<th scope="col">테이블</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td class="talign_center"><label><input type="checkbox" /><span></span></label></td>
+	<td class="talign_center subject">subject 클래시 추가시 짤려서 표현됩니다.</td>
+	<td class="talign_center"><input type="text" title="" placeholder="너비값은 인라인 스타일로 컨트롤 합니다." value="" style="width:100%;" /></td>
+	<td class="talign_center">테이블</td>
+	<td class="talign_center">테이블 thead존재하는 유형</td>
+</tr>
+</tbody>
+</table><!-- table end -->
+
+<br />
+
+<table class="type2"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:280px" />
+	<col style="width:*" />
+</colgroup>
+<tbody>
+<tr>
+	<th scope="row">테이블</th>
+	<td>테이블 thead없는 유형</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 라디오</th>
+	<td>
+	<label><input type="radio" name="name" /><span></span><span class="text">항목이름</span></label>
+	<label><input type="radio" name="name" /><span></span><span class="text">항목이름</span></label>
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 체크박스</th>
+	<td>
+	<label><input type="checkbox" /><span></span><span class="text">항목이름</span></label>
+	<label><input type="checkbox" /><span></span><span class="text">항목이름</span></label>
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 텍스트 입력창</th>
+	<td>
+	<input type="text" title="" placeholder="너비값은 인라인 스타일로 컨트롤 합니다." value="" style="width:100%;" />
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 텍스트 입력창</th>
+	<td>
+	<input type="text" title="" placeholder="너비값은 인라인 스타일로 컨트롤 합니다." value="" style="width:300px;" />
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 패스워드 입력창</th>
+	<td>
+	<input type="password" title="" placeholder="너비값은 인라인 스타일로 컨트롤 합니다." value="" style="width:300px;" />
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 글자</th>
+	<td>
+	<span class="normal">표기용 글자</span>
+	</td>
+</tr>
+<tr>
+	<th scope="row">테이블속 여러 요소 동시에 사용</th>
+	<td>
+	<label><input type="radio" name="name2" /><span></span><span class="text">항목이름</span></label>
+	<label><input type="radio" name="name2" /><span></span><span class="text">항목이름</span></label>
+	<label><input type="checkbox" /><span></span><span class="text">항목이름</span></label>
+	<label><input type="checkbox" /><span></span><span class="text">항목이름</span></label>
+	<input type="text" title="" placeholder="너비값은 인라인 스타일로 컨트롤 합니다." value="" style="width:300px;" />
+	<span class="normal">표기용 글자</span>
+	</td>
+</tr>
+</tbody>
+</table><!-- table end -->
+
+<br />
+
+<table class="round_type" style="width:100%;"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:59px" />
+	<col style="width:54px" />
+	<col style="width:34px" />
+	<col style="width:34px" />
+	<col style="width:69px" />
+	<col style="width:61px" />
+	<col style="width:47px" />
+	<col style="width:27px" />
+	<col style="width:55px" />
+	<col style="width:58px" />
+	<col style="width:*" />
+</colgroup>
+<thead>
+<tr>
+	<th scope="col">PID</th>
+	<th scope="col">USER</th>
+	<th scope="col">PR</th>
+	<th scope="col">NI</th>
+	<th scope="col">VIRT</th>
+	<th scope="col">RES</th>
+	<th scope="col">SHR</th>
+	<th scope="col">S</th>
+	<th scope="col">%CPU</th>
+	<th scope="col">%MEM</th>
+	<th scope="col">TIME+COMMAND</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+	<td>111</td>
+	<td>mysql</td>
+	<td>20</td>
+	<td>0</td>
+	<td>1208408</td>
+	<td>174008</td>
+	<td>7060</td>
+	<td>s</td>
+	<td>87.4</td>
+	<td>17.4</td>
+	<td>모서리가 둥근 테이블</td>
+</tr>
+</tbody>
+</table><!-- table end -->
+
+<br />
+
+<p class="btn btn_sky"><a href="#">하늘색 버튼</a></p>
+<p class="btn btn_blue"><a href="#">파란색 버튼</a></p>
+<p class="btn btn_orange"><a href="#">오렌지색 버튼</a></p>
+<p class="btn btn_green"><a href="#">초록색 버튼</a></p>
+<p class="btn btn_dark"><a href="#">흰색선 버튼</a></p>
+<p class="btn btn_gray"><a href="#">회색 버튼</a></p>
+<p class="btn btn_black"><a href="#">검은색 버튼</a></p>
+<p class="btn big btn_black"><a href="#">큰버튼 big클래스 추가</a></p>
+<p class="btn small btn_black"><a href="#">작은버튼 small클래스 추가</a></p>
+<br />
+
+<button class="btn btn_sky">하늘색 버튼</button>
+<button class="btn btn_blue">파란색 버튼</button>
+<button class="btn btn_orange">오렌지색 버튼</button>
+<button class="btn btn_green">초록색 버튼</button>
+<button class="btn btn_dark">흰색선 버튼</button>
+<button class="btn btn_gray">회색 버튼</button>
+<button class="btn btn_black">검은색 버튼</button>
+<button class="btn big btn_black">큰버튼 big클래스 추가</button>
+<button class="btn small btn_black">작은버튼 small클래스 추가</button>
+<br />
+
+
+<p class="btn btn_black"><a href="#">플러스 아이콘 추가<span class="icon_plus_white"></span></a></p>
+<p class="btn btn_sky"><a href="#">플러스 아이콘 추가<span class="icon_plus_dark"></span></a></p>
+<p class="btn btn_gray"><a href="#">화살 아이콘 추가<span class="icon_orange_arrow"></span></a></p>
+<p class="btn btn_sky"><a href="#"><span class="icon_config"></span>설정 아이콘 추가</a></p>
+<p class="btn_plus"><a href="#">Plus</a></p>
+<p class="btn_minus"><a href="#">Minus</a></p>
+<p class="btn_more"><a href="#">More</a></p>
+<p class="btn_search_black"><a href="#">search</a></p>
+<br />
+
+<button class="btn btn_black">플러스 아이콘 추가<span class="icon_plus_white"></span></button>
+<button class="btn btn_sky">플러스 아이콘 추가<span class="icon_plus_dark"></span></button>
+<button class="btn btn_gray">화살 아이콘 추가<span class="icon_orange_arrow"></span></button>
+<button class="btn btn_sky"><span class="icon_config"></span>설정 아이콘 추가</button>
+<button class="btn_plus">Plus</button>
+<button class="btn_minus">Minus</button>
+<button class="btn_more">More</button>
+<button class="btn_search_black">search</button>
+<br />
+
+<ul class="right_btns">
+	<li><p class="btn btn_orange"><a href="#">버튼 오른쪽 정렬</a></p></li>
+	<li><p class="btn btn_sky"><a href="#">버튼 오른쪽 정렬</a></p></li>
+</ul>
+<ul class="center_btns">
+	<li><p class="btn btn_orange"><a href="#">버튼 가운데 정렬</a></p></li>
+	<li><p class="btn btn_sky"><a href="#">버튼 가운데 정렬</a></p></li>
+</ul>
+<ul class="left_btns">
+	<li><p class="btn btn_orange"><a href="#">버튼 왼쪽 정렬</a></p></li>
+	<li><p class="btn btn_sky"><a href="#">버튼 왼쪽 정렬</a></p></li>
+</ul>
+
+<aside class="side_btns"><!-- side_btns start -->
+<ul class="left_btns">
+	<li><p class="btn btn_orange"><a href="#">버튼 오른쪽+왼쪽 정렬</a></p></li>
+	<li><p class="btn btn_sky"><a href="#">버튼 오른쪽+왼쪽 정렬</a></p></li>
+</ul>
+<ul class="right_btns">
+	<li><p class="btn btn_orange"><a href="#">버튼 오른쪽+왼쪽 정렬</a></p></li>
+	<li><p class="btn btn_sky"><a href="#">버튼 오른쪽+왼쪽 정렬</a></p></li>
+</ul>
+</aside><!-- side_btns end -->
+
+<aside class="blue_title mt30"><!-- blue_title start -->
+<ul class="search_opt">
+	<li>검색바</li>
+	<li><input type="text" title="" placeholder="" style="width:520px;" /></li>
+	<li><p class="btn small btn_black"><a href="#">검색</a></p></li>
+</ul>
+</aside><!-- blue_title end -->
+
+<aside class="blue_title type2"><!-- blue_title start -->
+<ul class="search_opt">
+	<li>하늘색 검색바</li>
+	<li><input type="text" title="" placeholder="프로젝트명 또는 메일 주소를 입력하세요." style="width:520px;" /></li>
+	<li><p class="btn small btn_black"><a href="#">검색</a></p></li>
+</ul>
+</aside><!-- blue_title end -->
+
+<article class="scroll_view clear" style="height:100px;"><!-- scroll_view start -->
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+스크롤 영역은 article class="scroll_view clear" 로 컨트롤 합니다.<br />
+높이값은 인라인 스타일로 처리합니다.<br />
+</article><!-- scroll_view end -->
+
+<br />
+
+<article class="tap_wrap"><!-- tap_wrap start -->
+<ul class="tap_btn">
+	<li class="on"><a href="#">탭1</a></li>
+	<li><a href="#">탭2</a></li>
+</ul>
+
+<section class="tap_content"><!-- tap_content start -->
+탭1영역
+</section><!-- tap_content end -->
+
+<section class="tap_content"><!-- tap_content start -->
+탭2영역
+</section><!-- tap_content end -->
+
+</article><!-- tap_wrap end -->
+
+<br />
+
+<article class="title_box"><!-- title_box start -->
+<aside class="center">
+<strong>컬러 박스 레이아웃</strong>
+</aside>
+<section>
+컬러 박스 레이아웃
+</section>
+</article><!-- title_box end -->
+
+<br />
+
+<section class="divine_auto border_line num2"><!-- divine_auto start -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 2분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 2분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+</section><!-- divine_auto end -->
+
+<br />
+
+<section class="divine_auto border_line num3"><!-- divine_auto start -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 3분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 3분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 3분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+</section><!-- divine_auto end -->
+
+<br />
+
+<section class="divine_auto border_line num4"><!-- divine_auto start -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 4분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 4분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 4분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 4분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+</section><!-- divine_auto end -->
+
+<br />
+
+<section class="divine_auto border_line num5"><!-- divine_auto start -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 5분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 5분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 5분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 5분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+<section class="wrap"><!-- wrap start -->
+
+<div class="border_line"><!-- border_line start -->
+가로 5분할 화면
+</div><!-- border_line end -->
+
+</section><!-- wrap end -->
+
+</section><!-- divine_auto end -->
+
+</div>
+</body>
+</html>
