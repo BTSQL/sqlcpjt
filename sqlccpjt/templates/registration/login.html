@@ -25,12 +25,15 @@
 <p class="back"><a href="#">Back</a></p>
 <dl>
 	<dt>아직 회원가입 전이라면?</dt>
-	<dd><p class="btn btn_black"><a href="#">회원가입</a></p></dd>
+	<dd><p class="btn btn_black"><a href="{% url 'register' %}">회원가입</a></p></dd>
 </dl>
 </header>
 
 <section class="login"><!-- login start -->
-<form action="#" method="post">
+<form action="." method="post"> {% csrf_token %}
+	 {% if form.errors %}
+    <p class="errornote">Wrong! Please correct the error(s) below.</p>
+    {% endif %}
 
 <ul>
 	<li class="mail"><input type="text" title="" placeholder="이메일" /></li>
@@ -41,10 +44,12 @@
 	-->
 	<li>
 	<label><input type="checkbox" /><span></span><span class="text">이메일 저장</span></label>
-	<p class="btn btn_orange"><a href="#">로그인</a></p>
+		<button class="btn btn_orange" type="submit"><a> 로그인 </a></button>
+		<!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+		<!-- <p class="btn btn_orange"><input type="submit" value="로그인"/> </p> -->
+		<!--  <!-- <a href="#">로그인</a></p> -->
 	</li>
 </ul>
-
 </form>
 </section><!-- login end -->
 

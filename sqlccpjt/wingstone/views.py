@@ -10,10 +10,10 @@ class SqlcHomeView(TemplateView) :
 
 
 class SqlcUserCreateView(CreateView):
-    template_name = 'login.html'
+    template_name = 'registration/join.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('register_done')
 
 class SqlcUserCreateDoneTV(TemplateView):
-    template_name = 'register_done.html'
+    template_name = 'sqlchome.html'
 

@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
+<title>SQL-C</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/master.css' %}" />
+<link rel="stylesheet" href="{% static 'css/common.css' %}" />
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/select_auto.js' %}"></script>
+<script src="{% static 'js/common.js' %}"></script>
+
+
+</head>
+<body>
+<div id="wrap"><!-- wrap start -->
+
+<div class="login_box"><!-- login_box start -->
+<header>
+<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
+<p class="back"><a href="#">Back</a></p>
+<dl>
+	<dt>아직 회원가입 전이라면?</dt>
+	<dd><p class="btn btn_black"><a href="{% url 'register' %}">회원가입</a></p></dd>
+</dl>
+</header>
+{% block content %} {% endblock %}
+</div><!-- login_box end -->
+
+</div><!-- wrap end -->
+
+</body>
+</html>

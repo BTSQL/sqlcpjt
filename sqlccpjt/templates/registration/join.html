@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
+<title>SQL-C</title>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/master.css' %}" />
+<link rel="stylesheet" href="{% static 'css/common.css' %}" />
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/Chart.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/select_auto.js' %}"></script>
+<script src="js/common.js"></script>
+</head>
+<body>
+<div id="wrap"><!-- wrap start -->
+
+<div class="login_box join"><!-- login_box start -->
+<header>
+<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
+<p class="back"><a href="#">Back</a></p>
+</header>
+
+<section class="join"><!-- join start -->
+<form action="#" method="post">{% csrf_token %}
+{% if form.errors %}
+    <p class="errornote">Wrong! Please correct the error(s) below.</p>
+    {{ form.errors }}
+{% endif %}
+
+<h2>회원가입</h2>
+<ul>
+    <li class="name">{{ form.username }}</li>
+    <li class="mail">{{ form.email }}</li>
+	<li class="pass">{{ form.password1 }}</li>
+	<li class="pass">{{ form.password2 }}</li>
+    <!--
+    <li class="mail"><input name="email" id="email" type="text" title="" placeholder="이메일" /></li>
+    <li class="pass"><input name="password" id="password" type="password" title="" placeholder="패스워드" /></li>
+    <li class="pass"><input name="password_confirm" id="password_confirm" type="password" title="" placeholder="패스워드 재입력" /></li>
+    -->
+    <!--
+    <li class="mail">{{ form.username.label_tag }} {{ form.username }}</li>
+	<li class="pass">{{ form.password1.label_tag }} {{ form.password1 }}</li>
+	<li class="pass">{{ form.password2.label_tag }} {{ form.password2 }}</li>
+	-->
+    <!--
+	<li class="mail"><input id="email" name="" type="text" title="" placeholder="이메일" /></li>
+	<li class="pass"><input id="password1" name="password1" type="password" title="" placeholder="패스워드" /></li>
+	<li class="pass"><input id="password2" name="password2" type="password" title="" placeholder="패스워드 재입력" /></li>
+	-->
+	<!-- 패스워드가 일치하지 않을 경우
+	<li class="pass error"><input type="password" title="" placeholder="패스워드가 일치하지 않습니다." /></li>
+	-->
+	<li>
+	<label><input type="checkbox" /><span></span><span class="text">서비스 이용약관에 동의합니다.</span></label>
+	<label><input type="checkbox" /><span></span><span class="text">개인정보 처리방침에 동의합니다.</span></label>
+	<label><input type="checkbox" /><span></span><span class="text">개인정보의 수집∙이용 동의서 에 동의합니다.</span></label>
+	<!-- 약관을 동의하지 않은 경우
+	<p class="alert">약관을 전부 동의하셔야 회원가입 됩니다.</p>
+	-->
+	<p class="info">
+	상기 약관 / 개인정보 처리방침 및 수집∙이용에 대한 내용을 숙지 후,<br />
+	동의 하셔야만 회원가입을 하실 수 있습니다.
+	</p>
+    <p><button class="btn btn_blue" type="submit">가입하기</button></p>
+	<!--<p class="btn btn_blue"><a href="#">가입하기</a></p> -->
+	</li>
+</ul>
+
+</form>
+</section><!-- join end -->
+
+</div><!-- login_box end -->
+
+</div><!-- wrap end -->
+
+</body>
+</html>
