@@ -1,38 +1,15 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=1024px,user-scalable=yes,target-densitydpi=device-dpi" name="viewport"/>
-<title>SQL-C</title>
+{% extends "login_base.html" %}
 {% load staticfiles %}
-<link rel="stylesheet" href="{% static 'css/master.css' %}" />
-<link rel="stylesheet" href="{% static 'css/common.css' %}" />
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/Chart.min.js' %}"></script>
-<script src="{% static 'js/jquery-ui.min.js' %}"></script>
-<script src="{% static 'js/select_auto.js' %}"></script>
-<script src="js/common.js"></script>
-</head>
-<body>
-<div id="wrap"><!-- wrap start -->
-
-<div class="login_box join"><!-- login_box start -->
-<header>
-<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
-<p class="back"><a href="#">Back</a></p>
-</header>
-
+{% block content %}
 <section class="join"><!-- join start -->
-<form action="#" method="post">{% csrf_token %}
+<form action="{% url 'register' %}" method="post">{% csrf_token %}
 {% if form.errors %}
-    <p class="errornote">Wrong! Please correct the error(s) below.</p>
+    <p > 다시 입력해 주세요</p>
     {{ form.errors }}
 {% endif %}
-
 <h2>회원가입</h2>
 <ul>
-    <li class="name">{{ form.username }}</li>
-    <li class="mail">{{ form.email }}</li>
+	<li class="mail">{{ form.username }}</li>
 	<li class="pass">{{ form.password1 }}</li>
 	<li class="pass">{{ form.password2 }}</li>
     <!--
@@ -71,10 +48,4 @@
 
 </form>
 </section><!-- join end -->
-
-</div><!-- login_box end -->
-
-</div><!-- wrap end -->
-
-</body>
-</html>
+{% endblock content %}
