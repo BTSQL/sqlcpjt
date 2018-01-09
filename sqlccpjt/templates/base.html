@@ -15,8 +15,7 @@
 <script src="{% static 'js/common.js' %}"></script>
 </head>
 <body>
-<div id="wrap" class="index_wrap"><!-- wrap start -->
-
+{% block divinfo %} <!-- <div id="wrap" class="index_wrap"> --> <!-- wrap start --> {% endblock %}
 <header id="header" class="type2"><!-- header start -->
 
 <div class="header_in"><!-- header_in start -->
@@ -28,8 +27,10 @@
 	<li><a href="#">SQL-C 소개</a></li>
 	<li><a href="#">DB 모니터링</a></li>
 	<li><a href="#">SQL성능개선</a></li>
-	<li><a href="#">프로젝트관리</a></li>
-	<li><a href="{% url 'logout' %}">{% firstof user.get_short_name user.get_username %}&nbsp;로그아웃</a></li>
+	<li><a href="{% url 'pjtlist' %}">프로젝트관리</a></li>
+	<li><a href="#">승인 관리</a></li>
+	<li><a href="#">{% firstof user.get_short_name user.get_username %}</a></li>
+	<!--<li><a href="{% url 'logout' %}">{% firstof user.get_short_name user.get_username %}&nbsp;로그아웃</a></li> -->
 	<!-- <li><a href="#">{% firstof user.get_short_name user.get_username %} 회원정보수정</a></li> -->
 	{% else %}
 	<li><a href="#">SQL-C 소개</a></li>
@@ -38,6 +39,9 @@
 	{% endif %}
 
 </ul>
+	{% if user.is_active %}
+	<p class="login_btn"><a href="{% url 'logout' %}">로그아웃</a></p>
+	{% endif %}
 </nav><!-- gnb_wrap end -->
 
 </div><!-- header_in end -->

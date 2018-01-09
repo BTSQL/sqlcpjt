@@ -14,15 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.conf.urls import include, url
+from django.urls import path,  include
+from django.conf import settings
+from django.conf.urls import url
 from wingstone.views import SqlcHomeView, SqlcUserCreateView, SqlcUserCreateDoneTV
+
 
 urlpatterns = [
     #url(r'^admin/',include(admin.site.urls),name=None),
     path('admin/', admin.site.urls),
     url(r'^$',SqlcHomeView.as_view(), name='sqlchome'),
-
+    url(r'^pjtmgmt/', include('pjtmgmt.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/register/$', SqlcUserCreateView.as_view(), name='register'),
     url(r'^accounts/register/done/$', SqlcUserCreateDoneTV.as_view(), name='register_done'),
