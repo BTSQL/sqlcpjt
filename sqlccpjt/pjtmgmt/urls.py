@@ -5,6 +5,8 @@ from pjtmgmt.views import *
 
 urlpatterns = [
     url(r'^$', SqlcProjectLV.as_view(), name='pjtlist'),
+    url(r'^$', SqlcProjectCV.as_view(), name='pjt_create'),
+
     #path(r'^$', views.SqlcProjectLV, name='pjtlist'),
     #path(r'^$', views.SqlcProjectLV, name='pjtlist'),
     #url(r'^$', SqlcProjectDV.as_view(), name='pjtlist'),
