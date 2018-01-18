@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from pjtmgmt.models import *
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
+from pjtmgmt.forms import *
 
 # Create your views here.
 
@@ -28,10 +29,23 @@ class SqlcProjects(models.Model):
 """
 
 class SqlcProjectCV(CreateView):
+    #model = SqlcProjects
+    form_class = ProjectForm
+    #fields = ['project_nm', 'project_desc']
+    template_name = 'pjtmgmt/reg_sqlcpjt.html'
+    print('nnonono')
+    success_url = reverse_lazy('pjtmgmt:pjtlist')
+    print('xxx')
+
+    def form_valid(self, form):
+        print('ttt')
+        form.instance.owner = self.request.user
+
+
+class SqlcProjectUV(UpdateView):
     model = SqlcProjects
     fields = ['project_nm', 'project_desc']
-    template_name = 'pjtmgmt/reg_sqlcpjt.html'
-    success_url = reverse_lazy('pjtmgmt:pjtlist')
+    template_name = 'pjtmgmt/update_sqlcpjt.html'
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

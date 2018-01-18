@@ -1,10 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block divinfo %} <div id="wrap" ><!-- wrap start --> {% endblock %}
+{% block content %}
 
-</body>
-</html>
+<section class="contents"><!-- contents start -->
+<form action="#" method="post"> {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  {{ form.source.errors }}
+  {{ form.source }}
+
+<h2 class="level2">프로젝트 수정/삭제</h2>
+
+<table class="type2 mt30"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:220px" />
+	<col style="width:*" />
+</colgroup>
+<tbody>
+<tr>
+	<th scope="row">프로젝트명</th>
+    <td>{{ form.project_nm.errors }} {{ form.project_nm }} </td>
+	<!-- td><input type="text" title="프로젝트명" placeholder="프로젝트 명을 입력하세요." value="SQL C 프로젝트" style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">프로젝트 소개</th>
+    <td>{{ form.project_desc.errors }} {{ form.project_desc }} </td>
+	<!-- <td><input type="text" title="프로젝트 소개" placeholder="프로젝트 소개를 입력하세요." value="SQL C 구축을 위한 프로젝트입니다. " style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">프로젝트 OWNER</th>
+	<td><input type="text" title="프로젝트 OWNER" placeholder="프로젝트 OWNER 메일 계정을 입력하세요." value="{% firstof user.get_short_name user.get_username %}" style="width:100%;" disabled /></td>
+</tr>
+</tbody>
+</table><!-- table end -->
+
+<ul class="center_btns">
+    <li> <button type="submit">프로젝트 등록</button></li>
+	<!-- <li><p class="btn big btn_orange"><a href="#">프로젝트  수정</a></p></li> -->
+	<!-- <li><p class="btn big btn_dark"><a href="#">프로젝트 삭제</a></p></li> -->
+</ul>
+
+</form>
+</section><!-- contents end -->
+
+</section><!-- container end -->
+<hr />
+{% endblock %}
