@@ -3,6 +3,7 @@ from pjtmgmt.models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from pjtmgmt.forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -28,24 +29,49 @@ class SqlcProjects(models.Model):
 
 """
 
-class SqlcProjectCV(CreateView):
-    #model = SqlcProjects
-    form_class = ProjectForm
-    #fields = ['project_nm', 'project_desc']
-    template_name = 'pjtmgmt/reg_sqlcpjt.html'
-    print('nnonono')
-    success_url = reverse_lazy('pjtmgmt:pjtlist')
-    print('xxx')
+#class SqlcProjectDV(DetailView):
+#    pass
 
-    def form_valid(self, form):
-        print('ttt')
-        form.instance.owner = self.request.user
+class SqlcProjectCV(LoginRequiredMixin, CreateView):
 
-
-class SqlcProjectUV(UpdateView):
+    print("진입")
     model = SqlcProjects
-    fields = ['project_nm', 'project_desc']
+    fields = ['project_nm', 'project_desc', 'ownername','prod_id']
+    template_name = 'pjtmgmt/reg_sqlcpjt.html'
+    success_url = reverse_lazy('pjtlist')
+
+    print("진입2")
+    def form_valid(self, form):
+        print("진입3")
+        print('ttt')
+        #form.cleaned_data['ownername'] = self.request.user
+        form.instance.owner = self.request.user
+        #form.save()
+        return super(SqlcProjectCV, self).form_valid(form)
+
+    #def form_invalid(self, form):
+    #    print ("form is invalid")
+    #    return http.HttpResponse("form is invalid.. this is just an HttpResponse object")
+
+    #form_class = ProjectForm
+    #fields = ['project_nm', 'project_desc']
+
+    #print('nnonono'# )
+
+    #print('xxx')
+
+    #def form_valid(self, form):
+    #    print('ttt')
+    #    form.ownername = self.request.user
+    #    form.instance.owner = self.request.user
+    #    return super().form_valid(form)
+
+
+class SqlcProjectUV(LoginRequiredMixin, UpdateView):
+    model = SqlcProjects
+    fields = ['project_nm', 'project_desc', 'ownername', 'prod_id']
     template_name = 'pjtmgmt/update_sqlcpjt.html'
+    success_url = reverse_lazy('pjtlist')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

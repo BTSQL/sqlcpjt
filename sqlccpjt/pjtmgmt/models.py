@@ -18,6 +18,8 @@ class SqlcProjects(models.Model):
     prod_id = models.ForeignKey('SqlcProd',on_delete=models.CASCADE)
 
 
+
+
 """
 현재 자동으로 가입으로 처리 필요
 상품에 따른 프로젝트에서 만들 수 있는 서버수, 사용자 수를 제한한다. 
@@ -32,6 +34,9 @@ class SqlcProd(models.Model):
     end_eff_dt = models.CharField(max_length=8)
     tot_user_qty = models.DecimalField(max_digits=5, decimal_places=0)
     tot_server_qty = models.DecimalField(max_digits=5,decimal_places=0)
+
+    def __str__(self):
+        return self.prod_nm
 
 #class MntServer(models.Model):
 

@@ -4,7 +4,7 @@
 {% block content %}
 
 <section class="contents"><!-- contents start -->
-<form action="#" method="post"> {% csrf_token %}
+<form action="." method="post"> {% csrf_token %}
   {{ form.non_field_errors }}
 
   {{ form.source.errors }}
@@ -30,14 +30,18 @@
 	<!-- <td><input type="text" title="프로젝트 소개" placeholder="프로젝트 소개를 입력하세요." value="SQL C 구축을 위한 프로젝트입니다. " style="width:100%;" /></td> -->
 </tr>
 <tr>
+	<th scope="row">구매 상품</th>
+	<td>{{ form.prod_id}} </td>
+</tr>
+<tr>
 	<th scope="row">프로젝트 OWNER</th>
-	<td><input type="text" title="프로젝트 OWNER" placeholder="프로젝트 OWNER 메일 계정을 입력하세요." value="{% firstof user.get_short_name user.get_username %}" style="width:100%;" disabled /></td>
+	<td>{{ form.ownername }} </td>
 </tr>
 </tbody>
 </table><!-- table end -->
 
 <ul class="center_btns">
-    <li> <button type="submit">프로젝트 등록</button></li>
+    <li> <button class="btn big btn_orange" type="submit">프로젝트 등록</button></li>
 	<!-- <li><p class="btn big btn_orange"><a href="#">프로젝트  수정</a></p></li> -->
 	<!-- <li><p class="btn big btn_dark"><a href="#">프로젝트 삭제</a></p></li> -->
 </ul>

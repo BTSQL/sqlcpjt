@@ -9,7 +9,6 @@
 
 <h2 class="level2"> 나의 프로젝트 리스트 </h2>
 
-
 <aside class="blue_title mt30">
 <ul class="search_opt">
 	<li>프로젝트 명 검색&nbsp;&nbsp;</li>
@@ -27,13 +26,13 @@
 {% for pjt in object_list %}
 <li>
 	<strong> {% firstof user.get_short_name user.get_username %} </strong>
-	<p class="subject"><a href="#">{{ pjt.project_nm }} </a></p>
+	<p class="subject"><a href="{% url 'pjt_update' pjt.id %}">{{ pjt.project_nm }} </a></p>
 	<p class="date">생성일 : <span> {{ pjt.created_dt }} </span></p>
 	<ul class="right_btns">
 		<li><p class="btn btn_blue"><a href="#"> 서버 <span class="icon_plus_white"> </span> </a></p></li>
 		<li><p class="btn btn_green"><a href="#">모니터링<span class="icon_plus_white"></span></a></p></li>
 	</ul>
-	</li>
+</li>
 {% endfor %}
 </ul> <!-- list_style end -->
 <p class="btn_more mt20"><a href="#">More</a></p>
