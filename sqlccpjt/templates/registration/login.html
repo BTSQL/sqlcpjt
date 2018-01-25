@@ -1,7 +1,6 @@
 {% extends "login_base.html" %}
 {% load staticfiles %}
 {% block content %}
-
 <section class="login"><!-- login start -->
 <form action="{% url 'login' %}" method="post"> {% csrf_token %}
 	 {% if form.errors %}

@@ -21,11 +21,13 @@
 
 <div class="login_box"><!-- login_box start -->
 <header>
-<h1><a href="#"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
-<p class="back"><a href="#">Back</a></p>
+<h1><a href="/"><img src="{% static 'images/logo.png' %}" alt="SQL-C" /></a></h1>
 <dl>
+	{% if user.is_active %}
+	{% else %}
 	<dt>아직 회원가입 전이라면?</dt>
 	<dd><p class="btn btn_black"><a href="{% url 'register' %}">회원가입</a></p></dd>
+	{% endif %}
 </dl>
 </header>
 {% block content %} {% endblock %}

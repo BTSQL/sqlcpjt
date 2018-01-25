@@ -9,13 +9,16 @@ from django.contrib.auth.models import User
 """
 
 class SqlcProjects(models.Model):
-    ownername    = models.ForeignKey('auth.User',on_delete=models.CASCADE)
-    created_dt   = models.DateTimeField(default=datetime.now, blank=False)
-    project_nm   = models.CharField(max_length=255)
+    ownername = models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    project_nm = models.CharField(max_length=255)
     project_desc = models.TextField()
-    sta_eff_dt   = models.CharField(max_length=8)
-    end_eff_dt   = models.CharField(max_length=8)
+    sta_eff_dt = models.CharField(max_length=8)
+    end_eff_dt = models.CharField(max_length=8)
     prod_id = models.ForeignKey('SqlcProd',on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.project_nm
 
 
 
@@ -38,5 +41,72 @@ class SqlcProd(models.Model):
     def __str__(self):
         return self.prod_nm
 
-#class MntServer(models.Model):
+class MntServer(models.Model):
+    project = models.ForeignKey('SqlcProjects',on_delete=models.CASCADE)
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    server_nm = models.CharField(max_length=255, null=True)
+    db_server_ip = models.CharField(max_length=20, null=True)
+    db_access_port = models.DecimalField(max_digits=6, decimal_places=0)
+    db_acnt_id = models.CharField(max_length=20, null=True)
+    db_acnt_pwd = models.CharField(max_length=20, null=True)
+    is_available = models.BooleanField(default=False)
+    server_desc = models.TextField()
 
+    def __str__(self):
+        return self.server_nm + " ( " +self.project.project_nm +" ) "
+
+
+class ChkPrivilege(models.Model):
+    prv_id = models.CharField(max_length=255)
+    #prv_id = server_nm = models.CharField(max_length=255, null=False)
+
+
+"""
+class MntServers(db.Document):
+    project = db.ReferenceField(MntProjects, required=True)  # reverse_delete_rule=mongoengine.NULLIFY)
+    owner = db.ReferenceField(User, required=True)
+    created_at = db.DateTimeField(default=datetime.now, required=True)
+
+
+    server_nm = db.StringField(max_Length=255, required=True)
+    # project_id = db.StringField(max_Length=10, required=True)
+    # project_nm = db.StringField(max_Length=10, required=True)
+    # server_id = db.StringField(max_Length=10, required=True)
+    # mgmt_user_id = db.StringField(max_Length=255, required=True)
+    # server_cl_cd = db.StringField(
+    #     max_Length=2,
+    #     required=True,
+    #     default='DB',
+    #     choices=SERVER_TYPE_CHOICES)
+
+    host_ip = db.StringField(max_Length=20, required=True)
+    port = db.IntField(required=True)
+
+    desc = db.StringField(max_Length=500, required=True)
+    used_yn = db.StringField(max_Length=1, required=True, default='Y')
+    schema = db.ListField()
+    db_user_acnt_list = db.ListField()
+
+    # os에 대한 계정정보
+    acnt_id = db.StringField(max_Length=10, required=True)
+    pwd = db.StringField(max_Length=100, required=True)
+    # db에 대한 계정정보
+    db_acnt_nm = db.StringField(max_Length=20)
+    db_acnt_pwd = db.StringField(max_Length=20)
+
+    def clean(self):
+        # self.project_id = self.project.project_id
+        # self.project_nm = self.project.project_nm
+        # self.server_id = 'dummy'
+        # self.mgmt_user_id = 'dummy'
+        self.desc = "dummy"
+        self.owner = self.project.owner
+
+        # db의 경우는 계정데이터를 옮겨준다. 별도 관리하기 때문에
+        # if self.server_cl_cd == 'DB':
+        #     self.db_acnt_nm = self.acnt_id
+        #     self.db_acnt_pwd = self.pwd
+
+    def __str__(self):
+        return f'{self.server_nm}({self.host_ip})'
+"""

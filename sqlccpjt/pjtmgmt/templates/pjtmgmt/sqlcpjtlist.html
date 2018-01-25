@@ -19,7 +19,7 @@
 <!-- blue_title end -->
 
 <ul class="right_btns">
-	<li><p class="btn btn_orange"><a href="{% url 'pjt_create' %}">신규 프로젝트 등록<span class="icon_plus_white"></span></a></p></li>
+	<li><p class="btn btn_orange"><a href="{% url 'addpjt' %}">신규 프로젝트 등록<span class="icon_plus_white"></span></a></p></li>
 	<li><p class="btn btn_sky"><a href="#">모니터링 승인 요청<span class="icon_plus_dark"></span></a></p></li>
 </ul>
 <ul class="list_style"><!-- list_style start -->
@@ -29,7 +29,7 @@
 	<p class="subject"><a href="{% url 'pjt_update' pjt.id %}">{{ pjt.project_nm }} </a></p>
 	<p class="date">생성일 : <span> {{ pjt.created_dt }} </span></p>
 	<ul class="right_btns">
-		<li><p class="btn btn_blue"><a href="#"> 서버 <span class="icon_plus_white"> </span> </a></p></li>
+		<li><p class="btn btn_blue"><a href="{% url 'server_add' pjt.id %}"> 서버 <span class="icon_plus_white"> </span> </a></p></li>
 		<li><p class="btn btn_green"><a href="#">모니터링<span class="icon_plus_white"></span></a></p></li>
 	</ul>
 </li>

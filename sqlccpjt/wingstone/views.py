@@ -2,6 +2,7 @@
 
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
+from wingstone.forms import SqlcUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -12,7 +13,7 @@ class SqlcHomeView(TemplateView) :
 
 class SqlcUserCreateView(CreateView):
     template_name = 'registration/join.html'
-    form_class = UserCreationForm
+    form_class = SqlcUserCreationForm
     success_url = reverse_lazy('register_done')
 
 class SqlcUserCreateDoneTV(TemplateView):

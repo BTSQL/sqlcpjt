@@ -29,5 +29,4 @@ urlpatterns = [
     url(r'^accounts/register/$', SqlcUserCreateView.as_view(), name='register'),
     url(r'^accounts/register/done/$', SqlcUserCreateDoneTV.as_view(), name='register_done'),
 
-
 ]

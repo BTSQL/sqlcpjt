@@ -6,13 +6,14 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = SqlcProjects
-        fields = ['project_nm', 'project_desc','ownername']
+        exclude =['created_dt']
 
+
+    #def __init__(self, initial=None):
+    #    self.initial_extra = initial
+        #self.fields = getattr(option,'sta_eff_dt',)
         #def __init__(self,user_id):
         #    self.fields['ownername'] = user_id
-
-
-
 
 
 
