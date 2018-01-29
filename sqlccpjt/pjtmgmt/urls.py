@@ -6,12 +6,9 @@ from pjtmgmt.views import *
 urlpatterns = [
     url(r'^$', SqlcProjectLV.as_view(), name='pjtlist'),
     url(r'^addpjt/$', SqlcProjectCV.as_view(), name='addpjt'),
-    path('<int:pk>/update/', SqlcProjectUV.as_view(), name='pjt_update'),
+    path('<int:pk>/update/', SqlcProjectUV.as_view(), name='updatepjt'),
     path('<int:pk>/addserver/', MntServerCV.as_view(), name='server_add'),
-    #url(r'^detail/<int:pjtid>/$', SqlcProjectDV.as_view(), name='pjt_detail'),
+    path('<int:pk>/delete/', SqlcProjectDeleteView.as_view(), name='delpjt'),
+    path('<int:pk>/detail/', SqlcProjectDV.as_view(), name='detailpjt'),
 
-    #path(r'^$', views.SqlcProjectLV, name='pjtlist'),
-    #path(r'^$', views.SqlcProjectLV, name='pjtlist'),
-    #url(r'^$', SqlcProjectDV.as_view(), name='pjtlist'),
-    #url(r'^(?P<pk>\d+)/$', BookmarkDV.as_view(), name='detail'),
 ]

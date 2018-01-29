@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -20,8 +21,8 @@ class SqlcProjects(models.Model):
     def __str__(self):
         return self.project_nm
 
-
-
+    def get_absolute_url(self):
+        return reverse('updatepjt', kwargs={'pk': self.pk})
 
 """
 현재 자동으로 가입으로 처리 필요

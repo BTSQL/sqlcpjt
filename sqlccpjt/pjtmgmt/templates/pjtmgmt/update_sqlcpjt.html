@@ -1,10 +1,61 @@
-
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block divinfo %} <div id="wrap" ><!-- wrap start --> {% endblock %}
 {% block content %}
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Update" />
+
+<section class="contents"><!-- contents start -->
+<form action="." method="post"> {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  {{ form.source.errors }}
+  {{ form.source }}
+
+<h2 class="level2">프로젝트 수정/삭제</h2>
+
+<table class="type2 mt30"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:220px" />
+	<col style="width:*" />
+</colgroup>
+<tbody>
+<tr>
+	<th scope="row">프로젝트명</th>
+    <td>{{ form.project_nm.errors }} {{ form.project_nm }} </td>
+	<!-- td><input type="text" title="프로젝트명" placeholder="프로젝트 명을 입력하세요." value="SQL C 프로젝트" style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">프로젝트 소개</th>
+    <td>{{ form.project_desc.errors }} {{ form.project_desc }} </td>
+	<!-- <td><input type="text" title="프로젝트 소개" placeholder="프로젝트 소개를 입력하세요." value="SQL C 구축을 위한 프로젝트입니다. " style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">구매 상품</th>
+	<td>{{ form.prod_id}} </td>
+</tr>
+<tr>
+	<th scope="row">프로젝트 유효기간 </th>
+	<td>{{ form.sta_eff_dt }} ~ {{ form.end_eff_dt}} </td>
+</tr>
+<tr>
+	<th scope="row">프로젝트 OWNER</th>
+	<td> {{ form.ownername  }} </td>
+</tr>
+</tbody>
+</table><!-- table end -->
+
+<ul class="center_btns">
+    <li> <button class="btn big btn_orange" type="submit">프로젝트 수정</button></li>
+
+    <!--<li><p class="btn big btn_orange"><a href="{% url 'updatepjt' form.id">프로젝트  수정</a></p></li> -->
+    <!--<li><p class="btn big btn_orange"><a href="{% url 'delpjt' form.id">프로젝트  삭제</a></p></li> -->
+	<!-- <li><p class="btn big btn_orange"><a href="#">프로젝트  수정</a></p></li> -->
+	<!-- <li><p class="btn big btn_dark"><a href="#">프로젝트 삭제</a></p></li> -->
+</ul>
+
 </form>
+</section><!-- contents end -->
+
+</section><!-- container end -->
+<hr />
 {% endblock %}

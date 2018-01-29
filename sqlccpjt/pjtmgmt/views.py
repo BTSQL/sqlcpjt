@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from pjtmgmt.models import *
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from pjtmgmt.forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,16 +36,33 @@ class SqlcProjects(models.Model):
 
 ## form에 디폴트 값 셋팅 하기
 class SqlcProjectCV(LoginRequiredMixin, CreateView):
+
+
     form_class = ProjectForm
+    template_name = 'pjtmgmt/add_sqlcpjt.html'
+    success_url = reverse_lazy('pjtlist')
     #form_class = ProjectForm(initial={'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
                                  #'end_eff_dt': '20181231'})
 
-    initial = {'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
+    def get_form_kwargs(self, **kwargs):
+        self.initial  = {'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
                'end_eff_dt': '20181231',
-               'ownername' : User}
+               'ownername' : self.request.user
+               }
+        #instance = getattr(self, 'instance', None)
 
-    template_name = 'pjtmgmt/add_sqlcpjt.html'
-    success_url = reverse_lazy('pjtlist')
+        """
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['sta_eff_dt'].widget.attrs['readonly'] = True
+            self.fields['end_eff_dt'].widget.attrs['readonly'] = True
+            self.fields['ownername'].widget.attrs['readonly'] = True
+        """
+
+        kwargs = super(SqlcProjectCV,self).get_form_kwargs(**kwargs)
+
+        return kwargs
+
 
     def form_valid(self, form):
         print(" Debug :" )
@@ -96,13 +113,31 @@ class SqlcProjectCV(LoginRequiredMixin, CreateView):
 
 
 class SqlcProjectUV(LoginRequiredMixin, UpdateView):
-    model = SqlcProjects
-    fields = ['project_nm', 'project_desc', 'ownername', 'prod_id']
+
+    form_class = ProjectForm
     template_name = 'pjtmgmt/update_sqlcpjt.html'
     success_url = reverse_lazy('pjtlist')
 
+    #fields = ['project_nm', 'project_desc', 'ownername', 'prod_id']
+    #template_name = 'pjtmgmt/update_sqlcpjt.html'
+    #success_url = reverse_lazy('pjtlist')
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
+        return super(SqlcProjectUV, self).form_valid(form)
+
+    def get_queryset(self):
+        return SqlcProjects.objects.filter(ownername=self.request.user)
+
+
+class SqlcProjectDeleteView(LoginRequiredMixin, DeleteView):
+    model = SqlcProjects
+    success_url = reverse_lazy('pjtlist')
+
+
+class SqlcProjectDV(LoginRequiredMixin, DetailView):
+    pass
+    #model =
 
 
 ## 본인의 선택한 프로젝트의 ID로 저장 되도록 수정 필요
