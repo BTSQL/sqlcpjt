@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block divinfo %} <div id="wrap" ><!-- wrap start --> {% endblock %}
+{% block content %}
+<section class="container"><!-- container start -->
+
+<section class="contents"><!-- contents start -->
+<form action="#" method="post">{% csrf_token %}
+
+<h2 class="level2"> {{ object.project_nm }} 프로젝트 정보 </h2>
+
+<table class="type2 mt30"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:220px" />
+	<col style="width:*" />
+</colgroup>
+<tbody>
+<tr>
+	<th scope="row">프로젝트 소개</th>
+    <td>{{ object.project_desc.errors }} {{ object.project_desc }} </td>
+	<!-- <td><input type="text" title="프로젝트 소개" placeholder="프로젝트 소개를 입력하세요." value="SQL C 구축을 위한 프로젝트입니다. " style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">구매 상품</th>
+	<td>{{ object.prod_id}} </td>
+</tr>
+<tr>
+	<th scope="row">프로젝트 유효기간 </th>
+	<td>{{ object.sta_eff_dt }} ~ {{ object.end_eff_dt}} </td>
+</tr>
+<tr>
+	<th scope="row">프로젝트 OWNER</th>
+	<td> {{ object.ownername  }} </td>
+</tr>
+</tbody>
+</table><!-- table end -->
+</br>
+
+<!-- 검색기능이 없어서 당분간 주석 처리 함 -->
+<!--
+<aside class="blue_title mt30">
+<ul class="search_opt">
+	<li>프로젝트 명 검색&nbsp;&nbsp;</li>
+	<li><input type="text" title="" placeholder="" style="width:520px;" /></li>
+	<li><p class="btn small btn_black"><a href="#">검색</a></p></li>
+</ul>
+</aside>
+-->
+<!-- blue_title end -->
+
+<ul class="right_btns">
+	<li><p class="btn btn_orange"><a href="{% url 'addserver'  %}">서버추가<span class="icon_plus_white"></span></a></p></li>
+	<li><p class="btn btn_orange"><a href="{% url 'addgroup'  %}">모니터링 그룹 추가<span class="icon_plus_white"></span></a></p></li>
+</ul>
+<ul class="list_style"><!-- list_style start -->
+
+<h2 class="level2"> 모니터링 그룹목록 </h2> </br></br>
+{% for mnt in object.mntgroup_set.all %}
+<li>
+	<strong> {{ mnt.mnt_group_nm }}  </strong>
+    <p class="subject"><a href="#"> 그룹정보 :&nbsp;<span> {{ mnt.mnt_group_desc}} </a></p>
+	<ul class="right_btns">
+		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 사용자 추가 <span class="icon_plus_white"> </span> </a></p></li>
+		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버 추가 <span class="icon_plus_white"></span></a></p></li>
+		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 그룹명 변경 <span class="icon_plus_white"> </span> </a></p></li>
+		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">그룹삭제<span class="icon_plus_white"></span></a></p></li>
+	</ul>
+</li>
+{% endfor %}
+</br>
+
+
+<h2 class="level2"> 서버 목록 </h2>
+{% for mnt in object.mntserver_set.all %}
+<li>
+	<strong> {{ mnt.server_nm }}  </strong>
+    <p class="subject"><a href="#"> 서버IP정보 :&nbsp;<span> {{ mnt.db_server_ip}} &nbsp;&nbsp; </span> 생성일:&nbsp;  <span> {{ mnt.created_dt }} </span> </a></p>
+	<p class="date">유효여부 : <span> {{ mnt.is_available }} </span></p>
+	<ul class="right_btns">
+		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 서버수정 <span class="icon_plus_white"> </span> </a></p></li>
+		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버삭제<span class="icon_plus_white"></span></a></p></li>
+	</ul>
+</li>
+{% endfor %}
+</br>
+
+
+</ul> <!-- list_style end -->
+<p class="btn_more mt20"><a href="#">More</a></p>
+</form>
+</section><!-- contents end -->
+
+</section><!-- container end -->
+<hr />
+{% endblock %}

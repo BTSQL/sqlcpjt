@@ -39,7 +39,7 @@
 </tr>
 <tr>
 	<th scope="row">프로젝트 OWNER</th>
-	<td> {{ form.ownername  }} </td>
+	<td> {{ form.ownername }} </td>
 </tr>
 </tbody>
 </table><!-- table end -->
@@ -55,4 +55,47 @@
 
 </section><!-- container end -->
 <hr />
+	<script type="text/javascript">
+	$(document).ready(function(){
+
+	    var pownername = $("select[name=ownername]")[0].selectedIndex;
+	    alert(pownername.toString());
+
+	    $("#ownername").change(function(){
+	        var sample = $("#ownername option:selected").val();
+		    alert(sample);
+		});
+
+	    /*
+
+	    $("#ownername").click(function(){
+
+		    $("#ownername")[0].selectedIndex = pownername;
+		    alert("변경할  수 없습니다.");
+		});
+
+		$("#ownername").change(function(){
+		    //$(this)[0].selectedIndex = pownername;
+		    alert("변경할  수 없습니다.");
+		});
+
+	    $("#ownername").on("change", function(){
+		    $(this)[0].selectedIndex = pownername;
+		    alert("변경할  수 없습니다.");
+		});
+
+		$("select[name=ownername]").click(function(){
+		    $(this)[0].selectedIndex = pownername;
+		    alert("변경할  수 없습니다.");
+		});
+
+		*/
+
+
+
+
+
+	});
+</script>
 {% endblock %}
+

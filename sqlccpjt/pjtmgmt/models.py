@@ -111,3 +111,42 @@ class MntServers(db.Document):
     def __str__(self):
         return f'{self.server_nm}({self.host_ip})'
 """
+"""
+모니터링 그룹 해당 프로젝트의 모니터링 그룹 
+"""
+class MntGroup(models.Model):
+    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    mnt_group_nm = models.CharField(max_length=255, null=True)
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    mnt_group_desc = models.TextField()
+
+    def __str__(self):
+        return self.mnt_group_nm + " ( " +self.project.project_nm +" ) "
+
+"""
+모니터링 그룹별 관리 서버 
+"""
+class MntGroupServer(models.Model):
+    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
+    ava_server = models.ForeignKey('MntServer', on_delete=models.CASCADE)
+
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+
+    def __str__(self):
+        return self.mntgroup.mnt_group_nm + " ( " +self.ava_server.server_nm +" ) "
+
+
+"""
+모니터링 그룹별 사용자 
+"""
+class MntGroupUser(models.Model):
+    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
+    mntUser = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+
+    def __str__(self):
+        return self.mntgroup.mnt_group_nm + " ( " +self.ava_server.server_nm +" ) "
+

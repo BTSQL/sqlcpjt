@@ -2,10 +2,17 @@
 from django.forms import ModelForm
 from django import forms
 from pjtmgmt.models import *
+from django.forms import CharField
+
+
+
 
 
 ### 폼에서 disable 처리하는 법 적용하기
 class ProjectForm(ModelForm):
+
+    #ownername = forms.CharField()
+
 
     """
     def __init__(self, *args, **kwargs):
@@ -29,6 +36,15 @@ class ProjectForm(ModelForm):
             return self.cleaned_data['sta_eff_dt']
 
     """
+    def __init__(self, *args, **kwargs):
+        #user = kwargs.pop('user')
+        super(ProjectForm, self).__init__(*args, **kwargs)
+        #self.fields['ownername'].queryset = user
+        #self.fields['ownername'].widget.attrs['id'] = 'ownername'
+        #self.fields['ownername'].widget.attrs['onChange'] = 'alert("test");'
+        #self.fields['ownername'].queryset = User.objects.get(username = ownername)
+        #self.fields['ownername'].widget.attrs['id'] = 'ownername'
+
 
     class Meta:
         model = SqlcProjects
@@ -51,6 +67,12 @@ class ProjectForm(ModelForm):
         #self.fields = getattr(option,'sta_eff_dt',)
         #def __init__(self,user_id):
         #    self.fields['ownername'] = user_id
+
+
+class MntGroupForm(ModelForm):
+    class Meta:
+        model = MntGroup
+        exclude =['created_dt']
 
 
 

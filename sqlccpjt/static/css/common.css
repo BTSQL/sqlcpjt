@@ -536,7 +536,7 @@ label .text{margin-left:6px; font-size:15px; color:#222; line-height:20px;}
 .list_style > li > p{float:left; line-height:40px; font-size:15px; color:#222;}
 .list_style > li > p > a,
 .list_style > li > p > span{display:inline-block; line-height:40px; font-size:15px; color:#222; vertical-align:top;}
-.list_style > li > p.subject{position:relative; width:410px; margin:0 50px 0 30px;}
+.list_style > li > p.subject{position:relative; width:250px; margin:0 50px 0 30px;}
 .list_style > li > p.subject:after{content:""; display:block; position:absolute; top:13px; right:0; width:1px; height:14px; background:#7F8499;}
 .list_style > li > p.subject a{display:block; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
 .list_style > li .right_btns{clear:none;}

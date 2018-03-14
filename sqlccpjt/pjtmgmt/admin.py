@@ -11,5 +11,9 @@ class SqlcProjectsAdmin(admin.ModelAdmin):
 class SqlcProdAdmin(admin.ModelAdmin):
     list_display = ('prod_id', 'prod_nm', 'prod_desc', 'tot_user_qty','tot_server_qty')
 
+
+
 admin.site.register(SqlcProjects, SqlcProjectsAdmin)
 admin.site.register(SqlcProd, SqlcProdAdmin)
+admin.site.register(MntServer)
+admin.site.register(MntGroup)

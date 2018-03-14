@@ -5,13 +5,13 @@
 <section class="container"><!-- container start -->
 
 <section class="contents"><!-- contents start -->
-<form action="#" method="post">
+<form action="#" method="post">{% csrf_token %}
 
-<h2 class="level2"> 프로젝트 삭제 </h2>
+<h2 class="level2"> 삭제 </h2>
 
 <aside class="blue_title mt30">
 <ul class="search_opt">
-	<li> {{ object }} 프로젝트를 정말 삭제하시겠습니까? </li>
+	<li> {{ object }} 삭제하시겠습니까? </li>
     <li> <button class="btn small btn_black" type="submit">삭제</button></li>
 </ul>
 </aside>
