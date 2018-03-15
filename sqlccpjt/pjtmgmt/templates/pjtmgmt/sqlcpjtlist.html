@@ -23,18 +23,18 @@
 
 <ul class="right_btns">
 	<li><p class="btn btn_orange"><a href="{% url 'addpjt' %}">신규 프로젝트 등록<span class="icon_plus_white"></span></a></p></li>
-	<li><p class="btn btn_sky"><a href="#">모니터링 승인 요청<span class="icon_plus_dark"></span></a></p></li>
+	<!-- <li><p class="btn btn_sky"><a href="#">모니터링 승인 요청<span class="icon_plus_dark"></span></a></p></li> -->
 </ul>
 <ul class="list_style"><!-- list_style start -->
 {% for pjt in object_list %}
 <li>
 	<strong> {% firstof user.get_short_name user.get_username %} </strong>
-	<p class="subject"><a href="{% url 'detailpjt' pjt.id %}">{{ pjt.project_nm }} </a></p>
+	<p class="subject"><a href="{% url 'detailpjt' pjt.id %}">{{ pjt.project_nm }} &nbsp;[&nbsp;상세정보 &nbsp;보기&nbsp;] </a></p>
 	<ul class="date">
 		<li><p class="btn btn_blue" ><a href="{% url 'updatepjt' pjt.id %}"> 수정 <span class="icon_plus_white"> </span> </a></p>
-		<p class="btn btn_green" ><a href="{% url 'delpjt' pjt.id %}">삭제<span class="icon_plus_white"></span></a></p>
-		<p class="btn btn_orange" ><a href="#"> 시작 <span class="icon_plus_white"></span></a></p>
-		<p class="btn btn_sky"><a href="#">중지<span class="icon_plus_dark"></span></a></p></li>
+		<p class="btn btn_green" ><a href="{% url 'delpjt' pjt.id %}"> 삭제 <span class="icon_plus_white"></span></a></p>
+		<p class="btn btn_orange" ><a href="#"> 모니터링 시작 <span class="icon_plus_white"></span></a></p>
+		<!-- <p class="btn btn_sky"><a href="#">중지<span class="icon_plus_dark"></span></a></p></li> -->
 	</ul>
 </li>
 {% endfor %}

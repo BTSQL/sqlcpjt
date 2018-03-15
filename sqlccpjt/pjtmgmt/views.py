@@ -3,6 +3,7 @@ from pjtmgmt.models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from pjtmgmt.forms import *
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 import pymysql
 from datetime import datetime
@@ -13,12 +14,12 @@ from django.contrib import messages
 # Create your views here
 
 class SqlcProjectLV(ListView):
-    model = SqlcProjects
+    model = SqlcProject
     template_name = 'pjtmgmt/sqlcpjtlist.html'
 
     # 본인 프로젝트만 볼수 있다.
     def get_queryset(self):
-        return SqlcProjects.objects.filter(ownername=self.request.user)
+        return SqlcProject.objects.filter(owner=self.request.user)
 
 """
 class SqlcProjects(models.Model):
@@ -32,15 +33,12 @@ class SqlcProjects(models.Model):
 
 """
 
-#class SqlcProjectDV(DetailView):
-#    pass
-
 
 ## form에 디폴트 값 셋팅 하기
 class SqlcProjectCV(LoginRequiredMixin, CreateView):
 
 
-    form_class = ProjectForm
+    form_class = SqlcProjectForm
     template_name = 'pjtmgmt/add_sqlcpjt.html'
     success_url = reverse_lazy('pjtlist')
     #form_class = ProjectForm(initial={'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
@@ -48,23 +46,13 @@ class SqlcProjectCV(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self, **kwargs):
         self.initial  = {'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
-               'end_eff_dt': '20181231' #,
-               #'ownername' : User.objects.filter(username=self.request.user.username)
+               'end_eff_dt': '20181231',
+               'owner' : self.request.user,
+               'prod_id'  : SqlcProd.objects.get(prod_id='FREE') #디폴트로 공짜 상품 넣어줌
                }
 
-        #instance = getattr(self, 'instance', None)
-
-        """
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields['sta_eff_dt'].widget.attrs['readonly'] = True
-            self.fields['end_eff_dt'].widget.attrs['readonly'] = True
-            self.fields['ownername'].widget.attrs['readonly'] = True
-        """
-
         kwargs = super(SqlcProjectCV,self).get_form_kwargs(**kwargs)
-
-        #kwargs['user'] = self.request.user
+        kwargs['user'] = self.request.user
 
         return kwargs
 
@@ -72,23 +60,13 @@ class SqlcProjectCV(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         print(" Debug :" )
         form.instance.owner = self.request.user
-        if form.cleaned_data['ownername'] == self.request.user:
-            print("성공")
-            return super(SqlcProjectCV, self).form_valid(form)
-        else:
-            print("실패")
-            return
-        #form.ownername = User.objects.filter(ownername=self.request.user)
-        #form.cleaned_data['ownername'] = self.request.user
-        #form.cleaned_data['sta_eff_dt'] = datetime.today().strftime("%Y%m%d")
-        #form.cleaned_data['end_eff_dt'] = '20181231'
-        #form.ownername = self.request.user
-        #form.sta_eff_dt = datetime.today().strftime("%Y%m%d")
-        #form.end_eff_dt = '20181231'
-
+        return super(SqlcProjectCV, self).form_valid(form)
 
     def form_invalid(self, form):
         print("form is invalid")
+        return super(SqlcProjectCV, self).form_invalid(form)
+
+
 
 
 
@@ -149,6 +127,7 @@ class SqlcProjectUV(LoginRequiredMixin, UpdateView):
         form.instance.owner = self.request.user
         return super(SqlcProjectUV, self).form_valid(form)
 
+
     def get_queryset(self):
         return SqlcProjects.objects.filter(ownername=self.request.user)
 
@@ -156,13 +135,13 @@ class SqlcProjectUV(LoginRequiredMixin, UpdateView):
 
 
 class SqlcProjectDeleteView(LoginRequiredMixin, DeleteView):
-    model = SqlcProjects
+    model = SqlcProject
     success_url = reverse_lazy('pjtlist')
     template_name = 'pjtmgmt/confirm_delete.html'
 
 
 class SqlcProjectDV(LoginRequiredMixin, DetailView):
-    model = SqlcProjects
+    model = SqlcProject
     template_name = 'pjtmgmt/detail_sqlcpjt.html'
 
 

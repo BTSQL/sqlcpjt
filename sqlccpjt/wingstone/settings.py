@@ -146,3 +146,6 @@ LOGOUT_REDIRECT_URL ='/'
 
 #STATIC_URL = '/static/'
 #STATICFILES_DIR = [os.path.join(BASE_DIR,'static')]
+
+## 장고의 사용자 정보를 그대로 사용한다. ##
+## AUTH_USER_MODEL = 'auth.User'

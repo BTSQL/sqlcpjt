@@ -1,33 +1,38 @@
 from django.db import models
 from datetime import datetime
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
+
 # Create your models here.
 
-"""
-프로젝트로서 
-오너, 생성일자, 유효기간(일자)를 관리한다. 
-"""
+def get_sentinel_user():
+    return get_user_model().objects.get_or_create(username='do not exist')[0]
 
-class SqlcProjects(models.Model):
-    ownername = models.ForeignKey('auth.User',on_delete=models.CASCADE)
-    created_dt = models.DateTimeField(default=datetime.now, blank=False)
-    project_nm = models.CharField(max_length=255)
-    project_desc = models.TextField()
-    sta_eff_dt = models.CharField(max_length=8)
-    end_eff_dt = models.CharField(max_length=8)
-    prod_id = models.ForeignKey('SqlcProd',on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.project_nm
-
-    def get_absolute_url(self):
-        return reverse('updatepjt', kwargs={'pk': self.pk})
 
 """
 현재 자동으로 가입으로 처리 필요
 상품에 따른 프로젝트에서 만들 수 있는 서버수, 사용자 수를 제한한다. 
 """
+class SqlcProject(models.Model):
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), )
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    project_nm = models.CharField(max_length=255, help_text="프로젝트 명칭", null=False)
+    project_desc = models.TextField(null=False, blank=False)
+    sta_eff_dt = models.CharField(max_length=8, null=False, blank=False)
+    end_eff_dt = models.CharField(max_length=8, null=False, blank=False)
+    prod_id = models.ForeignKey('SqlcProd', on_delete=models.CASCADE)
+    mnt_is_run = models.BooleanField(default=False)
+    mnt_status = models.CharField(default="미수행", max_length=10)
+
+    """
+    결제 여부등 추후 별도 관리 필요 
+    """
+    def __str__(self):
+        return self.project_nm
+
+
 
 class SqlcProd(models.Model):
     prod_id = models.CharField(max_length=80)
@@ -37,13 +42,42 @@ class SqlcProd(models.Model):
     sta_eff_dt = models.CharField(max_length=8)
     end_eff_dt = models.CharField(max_length=8)
     tot_user_qty = models.DecimalField(max_digits=5, decimal_places=0)
-    tot_server_qty = models.DecimalField(max_digits=5,decimal_places=0)
+    tot_server_qty = models.DecimalField(max_digits=5, decimal_places=0)
 
     def __str__(self):
         return self.prod_nm
 
+
+
+
+    #pay_yn = models.CharField(max_length=8, null=False, blank=False)
+
+
+"""
+프로젝트로서 
+오너, 생성일자, 유효기간(일자)를 관리한다. 
+"""
+
+
+class SqlcProjects(models.Model):
+    ownername = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    project_nm = models.CharField(max_length=255)
+    project_desc = models.TextField()
+    sta_eff_dt = models.CharField(max_length=8)
+    end_eff_dt = models.CharField(max_length=8)
+    prod_id = models.ForeignKey('SqlcProd', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.project_nm
+
+    def get_absolute_url(self):
+        return reverse('updatepjt', kwargs={'pk': self.pk})
+
+
+
 class MntServer(models.Model):
-    project = models.ForeignKey('SqlcProjects',on_delete=models.CASCADE)
+    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
     server_nm = models.CharField(max_length=255, null=True)
     db_server_ip = models.CharField(max_length=20, null=True)
@@ -54,12 +88,12 @@ class MntServer(models.Model):
     server_desc = models.TextField()
 
     def __str__(self):
-        return self.server_nm + " ( " +self.project.project_nm +" ) "
+        return self.server_nm + " ( " + self.project.project_nm + " ) "
 
 
 class ChkPrivilege(models.Model):
     prv_id = models.CharField(max_length=255)
-    #prv_id = server_nm = models.CharField(max_length=255, null=False)
+    # prv_id = server_nm = models.CharField(max_length=255, null=False)
 
 
 """
@@ -114,6 +148,8 @@ class MntServers(db.Document):
 """
 모니터링 그룹 해당 프로젝트의 모니터링 그룹 
 """
+
+
 class MntGroup(models.Model):
     project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
     mnt_group_nm = models.CharField(max_length=255, null=True)
@@ -121,11 +157,14 @@ class MntGroup(models.Model):
     mnt_group_desc = models.TextField()
 
     def __str__(self):
-        return self.mnt_group_nm + " ( " +self.project.project_nm +" ) "
+        return self.mnt_group_nm + " ( " + self.project.project_nm + " ) "
+
 
 """
 모니터링 그룹별 관리 서버 
 """
+
+
 class MntGroupServer(models.Model):
     project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
     mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
@@ -134,12 +173,14 @@ class MntGroupServer(models.Model):
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
 
     def __str__(self):
-        return self.mntgroup.mnt_group_nm + " ( " +self.ava_server.server_nm +" ) "
+        return self.mntgroup.mnt_group_nm + " ( " + self.ava_server.server_nm + " ) "
 
 
 """
 모니터링 그룹별 사용자 
 """
+
+
 class MntGroupUser(models.Model):
     project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
     mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
@@ -148,5 +189,4 @@ class MntGroupUser(models.Model):
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
 
     def __str__(self):
-        return self.mntgroup.mnt_group_nm + " ( " +self.ava_server.server_nm +" ) "
-
+        return self.mntgroup.mnt_group_nm + " ( " + self.ava_server.server_nm + " ) "

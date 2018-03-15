@@ -5,6 +5,8 @@ from pjtmgmt.models import *
 
 # Register your models here.
 
+
+
 class SqlcProjectsAdmin(admin.ModelAdmin):
     list_display = ('ownername', 'created_dt','project_nm','prod_id' )
 
@@ -13,7 +15,8 @@ class SqlcProdAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(SqlcProjects, SqlcProjectsAdmin)
+#admin.site.register(SqlcProjects, SqlcProjectsAdmin)
 admin.site.register(SqlcProd, SqlcProdAdmin)
 admin.site.register(MntServer)
 admin.site.register(MntGroup)
+admin.site.register(SqlcProject)
