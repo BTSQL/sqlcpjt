@@ -31,7 +31,7 @@
 </tr>
 <tr>
 	<th scope="row">프로젝트 OWNER</th>
-	<td> {{ object.ownername  }} </td>
+	<td> {{ object.owner  }} </td>
 </tr>
 </tbody>
 </table><!-- table end -->
@@ -50,12 +50,12 @@
 <!-- blue_title end -->
 
 <ul class="right_btns">
-	<li><p class="btn btn_orange"><a href="{% url 'addserver'  %}">서버추가<span class="icon_plus_white"></span></a></p></li>
-	<li><p class="btn btn_orange"><a href="{% url 'addgroup'  %}">모니터링 그룹 추가<span class="icon_plus_white"></span></a></p></li>
+	<li><p class="btn btn_orange"><a href="{% url 'addserver' object.id %}">신규 서버 등록<span class="icon_plus_white"></span></a></p></li>
+	<li><p class="btn btn_orange"><a href="{% url 'addgroup'  %}">신규 모니터링 그룹 등록<span class="icon_plus_white"></span></a></p></li>
 </ul>
 <ul class="list_style"><!-- list_style start -->
 
-<h2 class="level2"> 모니터링 그룹목록 </h2> </br></br>
+<h2 class="level2"> 모니터링 그룹 리스트 </h2> </br></br>
 {% for mnt in object.mntgroup_set.all %}
 <li>
 	<strong> {{ mnt.mnt_group_nm }}  </strong>
@@ -71,7 +71,7 @@
 </br>
 
 
-<h2 class="level2"> 서버 목록 </h2>
+<h2 class="level2"> 서버 리스트 </h2>
 {% for mnt in object.mntserver_set.all %}
 <li>
 	<strong> {{ mnt.server_nm }}  </strong>

@@ -33,7 +33,6 @@ class SqlcProject(models.Model):
         return self.project_nm
 
 
-
 class SqlcProd(models.Model):
     prod_id = models.CharField(max_length=80)
     prod_nm = models.CharField(max_length=255)
@@ -49,35 +48,12 @@ class SqlcProd(models.Model):
 
 
 
-
     #pay_yn = models.CharField(max_length=8, null=False, blank=False)
-
-
-"""
-프로젝트로서 
-오너, 생성일자, 유효기간(일자)를 관리한다. 
-"""
-
-
-class SqlcProjects(models.Model):
-    ownername = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    created_dt = models.DateTimeField(default=datetime.now, blank=False)
-    project_nm = models.CharField(max_length=255)
-    project_desc = models.TextField()
-    sta_eff_dt = models.CharField(max_length=8)
-    end_eff_dt = models.CharField(max_length=8)
-    prod_id = models.ForeignKey('SqlcProd', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.project_nm
-
-    def get_absolute_url(self):
-        return reverse('updatepjt', kwargs={'pk': self.pk})
 
 
 
 class MntServer(models.Model):
-    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    project = models.ForeignKey('SqlcProject', on_delete=models.CASCADE)
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
     server_nm = models.CharField(max_length=255, null=True)
     db_server_ip = models.CharField(max_length=20, null=True)
@@ -148,13 +124,11 @@ class MntServers(db.Document):
 """
 모니터링 그룹 해당 프로젝트의 모니터링 그룹 
 """
-
-
 class MntGroup(models.Model):
-    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
-    mnt_group_nm = models.CharField(max_length=255, null=True)
+    project = models.ForeignKey('SqlcProject', on_delete=models.CASCADE)
+    mnt_group_nm = models.CharField(max_length=255, null=False, default="모니터링 그룹 명칭을 등록하세요")
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
-    mnt_group_desc = models.TextField()
+    mnt_group_desc = models.TextField(default="그룹에 대한 설명을 적어 주세요")
 
     def __str__(self):
         return self.mnt_group_nm + " ( " + self.project.project_nm + " ) "
@@ -164,9 +138,8 @@ class MntGroup(models.Model):
 모니터링 그룹별 관리 서버 
 """
 
-
 class MntGroupServer(models.Model):
-    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    project = models.ForeignKey('SqlcProject', on_delete=models.CASCADE)
     mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
     ava_server = models.ForeignKey('MntServer', on_delete=models.CASCADE)
 
@@ -180,7 +153,6 @@ class MntGroupServer(models.Model):
 모니터링 그룹별 사용자 
 """
 
-
 class MntGroupUser(models.Model):
     project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
     mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
@@ -190,3 +162,28 @@ class MntGroupUser(models.Model):
 
     def __str__(self):
         return self.mntgroup.mnt_group_nm + " ( " + self.ava_server.server_nm + " ) "
+
+
+
+
+"""
+프로젝트로서 
+오너, 생성일자, 유효기간(일자)를 관리한다. 
+미사용  
+"""
+
+
+class SqlcProjects(models.Model):
+    ownername = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    created_dt = models.DateTimeField(default=datetime.now, blank=False)
+    project_nm = models.CharField(max_length=255)
+    project_desc = models.TextField()
+    sta_eff_dt = models.CharField(max_length=8)
+    end_eff_dt = models.CharField(max_length=8)
+    prod_id = models.ForeignKey('SqlcProd', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.project_nm
+
+    def get_absolute_url(self):
+        return reverse('updatepjt', kwargs={'pk': self.pk})

@@ -1,27 +1,11 @@
 
 from django.forms import ModelForm
-from django import forms
 from pjtmgmt.models import *
 from django.contrib.auth.models import User
-from django.db import models
-from django.conf import settings
-from datetime import datetime
-from django.urls import reverse
 
 """
-owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET(get_sentinel_user), )
-created_dt = models.DateTimeField(default=datetime.now, blank=False)
-project_nm = models.CharField(max_length=255, default="프로젝트 명칭", null=False)
-project_desc = models.TextField(default="프로젝트 설명", null=False, blank=False)
-sta_eff_dt = models.CharField(max_length=8, null=False, blank=False)
-end_eff_dt = models.CharField(max_length=8, null=False, blank=False)
-prod_id = models.ForeignKey('SqlcProd', on_delete=models.CASCADE)
-class SqlcProjectForm(forms.Form):
-    owner =
-
-
+프로젝트를 등록하는 폼 
 """
-
 class SqlcProjectForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -30,8 +14,6 @@ class SqlcProjectForm(ModelForm):
 
         super(SqlcProjectForm, self).__init__(*args, **kwargs)
         self.fields['owner'].queryset = User.objects.filter(username=owner.username)
-        self.fields['project_desc'].help_text = "프로젝트 설명을 작성해 주세요"
-
 
 
     class Meta:
@@ -40,7 +22,42 @@ class SqlcProjectForm(ModelForm):
 
 
 """
+서버 추가를 등록하는 폼 
 """
+class SqlcServerForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        pjtid = kwargs.pop('pjtid', None)
+        super(SqlcServerForm, self).__init__(*args, **kwargs)
+        self.fields['project'].queryset = SqlcProject.objects.filter(id=pjtid)
+
+
+    class Meta:
+        model = MntServer
+        exclude =['created_dt']
+
+
+"""
+모니터링 그룹과 서버, 사용자를 mapping 하는 폼
+"""
+class MntGroupForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        project = kwargs.pop('project', None)
+        super(MntGroupForm, self).__init__(*args, **kwargs)
+        self.fields['project'].queryset = SqlcProject.objects.filter(id=project.id)
+
+
+    class Meta:
+        model = MntGroup
+        exclude =['created_dt']
+
+
+"""
+"""
+
+
 
 ### 폼에서 disable 처리하는 법 적용하기
 class ProjectForm(ModelForm):
