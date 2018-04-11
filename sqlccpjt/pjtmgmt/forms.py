@@ -2,6 +2,7 @@
 from django.forms import ModelForm
 from pjtmgmt.models import *
 from django.contrib.auth.models import User
+from django import forms
 
 """
 프로젝트를 등록하는 폼 
@@ -44,10 +45,9 @@ class SqlcServerForm(ModelForm):
 class MntGroupForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
-        project = kwargs.pop('project', None)
+        pjtid = kwargs.pop('pjtid', None)
         super(MntGroupForm, self).__init__(*args, **kwargs)
-        self.fields['project'].queryset = SqlcProject.objects.filter(id=project.id)
-
+        self.fields['project'].queryset = SqlcProject.objects.filter(id=pjtid)
 
     class Meta:
         model = MntGroup
@@ -120,11 +120,33 @@ class ProjectForm(ModelForm):
         #    self.fields['ownername'] = user_id
 
 
-class MntGroupForm(ModelForm):
+
+
+
+"""
+모니터링 사용자를 등록하는 폼 
+"""
+class MntGroupUserForm(forms.Form):
+
+    username = forms.EmailField(required=True)
+
+    def save(self, pjt, mntgrp, user):
+        #data = self.cleaned_data
+        #mntgrpuser = MntGroupUser(project=pjt,mntgroup=mntgrp,mntUser=user)
+        #mntgrpuser.save()
+        pass
+
+
+
+
+"""
+    def __init__(self, *args, **kwargs):
+        pjtid = kwargs.pop('pjtid', None)
+        super(MntGroupUserForm, self).__init__(*args, **kwargs)
+        #self.fields['project'].queryset = SqlcProject.objects.filter(id=pjtid)
+
     class Meta:
-        model = MntGroup
-        exclude =['created_dt']
+        model = MntGroupUserForm
+        exclude =['created_dt',]
 
-
-
-
+"""

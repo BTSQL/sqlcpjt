@@ -243,7 +243,6 @@ class SqlcProjectUV(LoginRequiredMixin, UpdateView):
 
 
 
-
 class SqlcProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = SqlcProject
     success_url = reverse_lazy('pjtlist')
@@ -255,25 +254,47 @@ class SqlcProjectDV(LoginRequiredMixin, DetailView):
     template_name = 'pjtmgmt/detail_sqlcpjt.html'
 
 
+
+
+class MntGroupDV(LoginRequiredMixin, DetailView):
+    model = MntGroup
+    template_name = 'pjtmgmt/detail_mntgroup.html'
+
+    def get_context_data(self, **kwargs):
+        mntgrp_id = self.kwargs['pk']
+        context = super(MntGroupDV, self).get_context_data(**kwargs)
+        mntgrp = MntGroup.objects.filter(id=mntgrp_id)
+        context["userlist"] = MntGroupUser.objects.filter(mntgroup=mntgrp)
+        context["serverlist"] = MntGroupUser.objects.filter(mntgroup=mntgrp)
+
+        return context
+
+
+
+
+
 class MntGroupCV(LoginRequiredMixin, CreateView):
 
     form_class = MntGroupForm
     template_name = 'pjtmgmt/add_mntgroup.html'
-    #success_url = reverse_lazy('detailpjt', kwards={'pk': self.pk})
 
-
-    # form_class = ProjectForm(initial={'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
-    # 'end_eff_dt': '20181231'})
+    def get_success_url(self):
+        return reverse_lazy('detailpjt', kwargs={'pk': self.kwargs['pk']})
 
     def get_form_kwargs(self, **kwargs):
-       # self.initial = {'sta_eff_dt': datetime.today().strftime("%Y%m%d"),
-       #                 'end_eff_dt': '20181231',
-       #                 'ownername': self.request.user
-       #                 }
 
-        kwargs = super(MntGroupCV, self).get_form_kwargs(**kwargs)
+        pjtid = self.kwargs['pk']
+
+        print('pjtid = %s', pjtid)
+
+        # 초기값으로 셋팅
+        self.initial = {'project': SqlcProject.objects.get(id=pjtid)  # 디폴트로 소속프로젝트 값 셋팅
+                        }
+        kwargs = super(MntGroupCV,self).get_form_kwargs(**kwargs)
+        kwargs['pjtid'] = pjtid
 
         return kwargs
+
 
     def form_valid(self, form):
         print(" Debug :")
@@ -283,9 +304,6 @@ class MntGroupCV(LoginRequiredMixin, CreateView):
 
     def form_invalid(self, form):
         print("form is invalid")
-
-
-
 
 
 
@@ -396,3 +414,15 @@ class MntServerDeleteView(LoginRequiredMixin, DeleteView):
     model = MntServer
     success_url = reverse_lazy('pjtlist')
     template_name = 'pjtmgmt/confirm_delete.html'
+
+
+
+class MntGroupUserCV(LoginRequiredMixin, CreateView):
+    form_class = MntGroupUserForm
+#    template_name = 'pjtmgmt/add_mntgrpuser.html'
+
+
+
+
+class MntGroupServerCV(LoginRequiredMixin, CreateView):
+    pass

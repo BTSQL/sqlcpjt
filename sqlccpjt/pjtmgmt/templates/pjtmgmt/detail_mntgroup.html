@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block divinfo %} <div id="wrap" ><!-- wrap start --> {% endblock %}
+{% block content %}
+<section class="container"><!-- container start -->
+
+<section class="contents"><!-- contents start -->
+<form action="#" method="post">{% csrf_token %}
+
+<h2 class="level2"> {{ object.mnt_group_nm }} 모니터링 그룹 정보 </h2>
+
+<table class="type2 mt30"><!-- table start -->
+<caption>table</caption>
+<colgroup>
+	<col style="width:220px" />
+	<col style="width:*" />
+</colgroup>
+<tbody>
+<tr>
+	<th scope="row">소속 프로젝트</th>
+    <td>{{ object.project.project_nm.errors }} {{ object.project.project_nm }} </td>
+	<!-- <td><input type="text" title="프로젝트 소개" placeholder="프로젝트 소개를 입력하세요." value="SQL C 구축을 위한 프로젝트입니다. " style="width:100%;" /></td> -->
+</tr>
+<tr>
+	<th scope="row">모니터링 그룹 설명 </th>
+	<td>{{ object.mnt_group_desc}} </td>
+</tr>
+</tbody>
+</table><!-- table end -->
+</br>
+
+<!-- 검색기능이 없어서 당분간 주석 처리 함 -->
+<!--
+<aside class="blue_title mt30">
+<ul class="search_opt">
+	<li>프로젝트 명 검색&nbsp;&nbsp;</li>
+	<li><input type="text" title="" placeholder="" style="width:520px;" /></li>
+	<li><p class="btn small btn_black"><a href="#">검색</a></p></li>
+</ul>
+</aside>
+-->
+<!-- blue_title end -->
+<ul class="list_style"><!-- list_style start -->
+
+<h2 class="level2"> 등록사용자 </h2> </br></br>
+{% for mnt in object.userlist_set.all %}
+<li>
+	<strong> {{ mnt.mntUser.get_username}}  </strong>
+    <p class="subject"><a href=""> 그룹정보 :&nbsp;<span> {{ mnt.mntUser.username}} </a></p>
+</li>
+{% endfor %}
+</br>
+
+
+<h2 class="level2"> 등록서버  </h2>
+{% for mnt in object.serverlist_set.all %}
+<li>
+	<strong> {{ mnt.ava_server.server_nm }}  </strong>
+    <p class="subject"><a href="#"> 서버IP정보 :&nbsp;<span> {{ mnt.ava_server.db_server_ip}} &nbsp;&nbsp; </span> 생성일:&nbsp;  <span> {{ mnt.ava_server.created_dt }} </span> </a></p>
+</li>
+{% endfor %}
+</br>
+
+
+</ul> <!-- list_style end -->
+<p class="btn_more mt20"><a href="#">More</a></p>
+</form>
+</section><!-- contents end -->
+
+</section><!-- container end -->
+<hr />
+{% endblock %}

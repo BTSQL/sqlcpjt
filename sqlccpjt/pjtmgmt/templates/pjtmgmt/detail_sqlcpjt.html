@@ -51,7 +51,7 @@
 
 <ul class="right_btns">
 	<li><p class="btn btn_orange"><a href="{% url 'addserver' object.id %}">신규 서버 등록<span class="icon_plus_white"></span></a></p></li>
-	<li><p class="btn btn_orange"><a href="{% url 'addgroup'  %}">신규 모니터링 그룹 등록<span class="icon_plus_white"></span></a></p></li>
+	<li><p class="btn btn_orange"><a href="{% url 'addgroup'  object.id %}">신규 모니터링 그룹 등록<span class="icon_plus_white"></span></a></p></li>
 </ul>
 <ul class="list_style"><!-- list_style start -->
 
@@ -59,7 +59,7 @@
 {% for mnt in object.mntgroup_set.all %}
 <li>
 	<strong> {{ mnt.mnt_group_nm }}  </strong>
-    <p class="subject"><a href="#"> 그룹정보 :&nbsp;<span> {{ mnt.mnt_group_desc}} </a></p>
+    <p class="subject"><a href="{% url 'detailmntgrp' mnt.id %}"> 그룹정보 :&nbsp;<span> {{ mnt.mnt_group_desc}} </a></p>
 	<ul class="right_btns">
 		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 사용자 추가 <span class="icon_plus_white"> </span> </a></p></li>
 		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버 추가 <span class="icon_plus_white"></span></a></p></li>
