@@ -10,7 +10,6 @@ from django.contrib.auth import get_user_model
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='do not exist')[0]
 
-
 """
 현재 자동으로 가입으로 처리 필요
 상품에 따른 프로젝트에서 만들 수 있는 서버수, 사용자 수를 제한한다. 
@@ -32,7 +31,6 @@ class SqlcProject(models.Model):
     def __str__(self):
         return self.project_nm
 
-
 class SqlcProd(models.Model):
     prod_id = models.CharField(max_length=80)
     prod_nm = models.CharField(max_length=255)
@@ -45,8 +43,6 @@ class SqlcProd(models.Model):
 
     def __str__(self):
         return self.prod_nm
-
-
 
     #pay_yn = models.CharField(max_length=8, null=False, blank=False)
 
@@ -154,14 +150,14 @@ class MntGroupServer(models.Model):
 """
 
 class MntGroupUser(models.Model):
-    project = models.ForeignKey('SqlcProjects', on_delete=models.CASCADE)
+    project = models.ForeignKey('SqlcProject', on_delete=models.CASCADE)
     mntgroup = models.ForeignKey('MntGroup', on_delete=models.CASCADE)
     mntUser = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     created_dt = models.DateTimeField(default=datetime.now, blank=False)
 
     def __str__(self):
-        return self.mntgroup.mnt_group_nm + " ( " + self.ava_server.server_nm + " ) "
+        return self.mntgroup.mnt_group_nm
 
 
 

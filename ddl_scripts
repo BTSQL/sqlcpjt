@@ -1,0 +1,36 @@
+
+drop index mnt_status_index_7 on mnt_status_log_7 ;
+drop table mnt_status_log_7 ;
+
+create table if not exists mnt_status_log_7 
+( mnt_server_id varchar(20) not null ,
+  mnt_oper_cnt decimal not null,
+  mnt_oper_dtm date not null,
+  mnt_col_name varchar(100) not null,
+  mnt_status varchar(50) not null
+ )
+ create index if not exists mnt_status_index_7 on mnt_status_log_7 (server_id, oper_dtm , col_name, status)
+ 
+ select max(oper_cnt) + 1
+ from mnt_status_log_7
+ 
+ 
+ create table if not exists mnt_slow_log_7 
+( mnt_server_id varchar(20) not null ,
+  mnt_oper_cnt decimal not null,
+  mnt_oper_dtm date not null,
+  start_time timestamp(6) not null , 
+  user_host mediumtext not null ,
+  query_time time(6) not null, 
+  lock_time time(6)  not null,            
+  rows_sent int(11)  not null,            
+  rows_examined int(11) not null,             
+  db           varchar(512) not null,        
+  last_insert_id int(11)   not null,           
+  insert_id      int(11)   not null,           
+  server_id      int(10) unsigned  not null,   
+  sql_text       mediumtext not null,          
+  thread_id      bigint(21) unsigned  not null, 
+  rows_affected  int(11) not null
+ )
+   

@@ -130,13 +130,40 @@ class MntGroupUserForm(forms.Form):
 
     username = forms.EmailField(required=True)
 
-    def save(self, pjt, mntgrp, user):
-        #data = self.cleaned_data
-        #mntgrpuser = MntGroupUser(project=pjt,mntgroup=mntgrp,mntUser=user)
-        #mntgrpuser.save()
-        pass
+    def save(self, pjt_id, mntgrp_id, email, commit=True):
+
+        #mnt = MntGroup.objects.filter(id=mntgrp_id)
+        #pjt = SqlcProject.objects.get(id=pjt_id)
+        #user = User.objects.get(username=email)
+        print('------start---------')
+        #print(mnt)
+        #print(pjt)
+        #print(user)
+        print('------end---------')
+
+        mntgrpuser = MntGroupUser(project=SqlcProject.objects.get(id=pjt_id), mntgroup=MntGroup.objects.get(id=mntgrp_id), mntUser=User.objects.get(username=email))
+        mntgrpuser.save()
 
 
+"""
+모니터링 그룹에 서버를 매핑하기 위한 폼 
+"""
+
+class MntGroupServerForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+
+        pjtid = kwargs.pop('pjtid', None)
+        mntid = kwargs.pop('mntid', None)
+        super(MntGroupServerForm, self).__init__(*args, **kwargs)
+
+        self.fields['project'].queryset = SqlcProject.objects.filter(id=pjtid)
+        self.fields['mntgroup'].queryset = MntGroup.objects.filter(id=mntid)
+        self.fields['ava_server'].queryset = MntServer.objects.filter(project=SqlcProject.objects.get(id=pjtid))
+
+    class Meta:
+        model = MntGroupServer
+        exclude = ['created_dt']
 
 
 """

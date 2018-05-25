@@ -43,7 +43,7 @@
 <ul class="list_style"><!-- list_style start -->
 
 <h2 class="level2"> 등록사용자 </h2> </br></br>
-{% for mnt in object.userlist_set.all %}
+{% for mnt in object.mntgroupuser_set.all %}
 <li>
 	<strong> {{ mnt.mntUser.get_username}}  </strong>
     <p class="subject"><a href=""> 그룹정보 :&nbsp;<span> {{ mnt.mntUser.username}} </a></p>
@@ -52,8 +52,8 @@
 </br>
 
 
-<h2 class="level2"> 등록서버  </h2>
-{% for mnt in object.serverlist_set.all %}
+<h2 class="level2"> 등록 서버  </h2>
+{% for mnt in object.mntgroupserver_set.all %}
 <li>
 	<strong> {{ mnt.ava_server.server_nm }}  </strong>
     <p class="subject"><a href="#"> 서버IP정보 :&nbsp;<span> {{ mnt.ava_server.db_server_ip}} &nbsp;&nbsp; </span> 생성일:&nbsp;  <span> {{ mnt.ava_server.created_dt }} </span> </a></p>

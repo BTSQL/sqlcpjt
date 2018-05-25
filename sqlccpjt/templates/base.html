@@ -25,7 +25,7 @@
 <ul class="gnb">
 	{% if user.is_active %}
 	<li><a href="#">SQL-C 소개</a></li>
-	<li><a href="#">DB 모니터링</a></li>
+	<li><a href="{% url 'dbmnt' %}">DB 모니터링</a></li>
 	<li><a href="#">SQL성능개선</a></li>
 	<li><a href="{% url 'pjtlist' %}">프로젝트관리</a></li>
 	<li><a href="#">승인 관리</a></li>

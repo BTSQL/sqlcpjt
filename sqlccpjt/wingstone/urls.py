@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$',SqlcHomeView.as_view(), name='sqlchome'),
     url(r'^pjtmgmt/', include('pjtmgmt.urls')),
+    url(r'^dbmnt/', include('dbmnt.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/register/$', SqlcUserCreateView.as_view(), name='register'),
     url(r'^accounts/register/done/$', SqlcUserCreateDoneTV.as_view(), name='register_done'),

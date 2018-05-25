@@ -16,8 +16,8 @@ urlpatterns = [
     path(r'<int:pk>/addgroup/', MntGroupCV.as_view(), name='addgroup'), # 모니터링 그룹 등록
     path(r'<int:pk>/detailmntgrp/', MntGroupDV.as_view(), name='detailmntgrp'), #모니터링그룹 상세 조회
 
-    path(r'<int:pk>/addmntuser/', MntGroupUserCV.as_view(), name='addmntuser'), # 모니터링 그룹 사용자 추가
-    path(r'<int:pk>/addmntserver/', MntGroupServerCV.as_view(), name='addmntserver'), # 모니터링 그룹 서버  추가
+    path(r'<int:pk>/<int:pjtid>/addmntuser/', MntGroupUserCV.as_view(), name='addmntuser'), # 모니터링 그룹 사용자 추가
+    path(r'<int:pk>/<int:pjtid>/addmntserver/', MntGroupServerCV.as_view(), name='addmntserver'), # 모니터링 그룹 서버  추가
 
 
 

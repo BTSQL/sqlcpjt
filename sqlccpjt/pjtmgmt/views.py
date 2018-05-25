@@ -1,8 +1,13 @@
+
 from django.shortcuts import get_object_or_404 , render
 from pjtmgmt.models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic.edit import FormView
+from django.contrib.auth import get_user_model
+
 from django.urls import reverse_lazy
 from pjtmgmt.forms import *
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 import pymysql
@@ -260,6 +265,7 @@ class MntGroupDV(LoginRequiredMixin, DetailView):
     model = MntGroup
     template_name = 'pjtmgmt/detail_mntgroup.html'
 
+    """
     def get_context_data(self, **kwargs):
         mntgrp_id = self.kwargs['pk']
         context = super(MntGroupDV, self).get_context_data(**kwargs)
@@ -268,7 +274,7 @@ class MntGroupDV(LoginRequiredMixin, DetailView):
         context["serverlist"] = MntGroupUser.objects.filter(mntgroup=mntgrp)
 
         return context
-
+    """
 
 
 
@@ -417,12 +423,139 @@ class MntServerDeleteView(LoginRequiredMixin, DeleteView):
 
 
 
-class MntGroupUserCV(LoginRequiredMixin, CreateView):
-    form_class = MntGroupUserForm
-#    template_name = 'pjtmgmt/add_mntgrpuser.html'
+class MntGroupUserCV(LoginRequiredMixin, FormView):
 
+    form_class = MntGroupUserForm
+    template_name = 'pjtmgmt/add_mntgrpuser.html'
+
+    #context_object_name = 'mntgrpinfo'
+
+
+    def get_success_url(self):
+        return reverse_lazy('addmntuser', kwargs={'pk': self.kwargs['pk'], 'pjtid': self.kwargs['pjtid']})
+
+    def get_context_data(self, **kwargs):
+        mntgrp_id = self.kwargs['pk']
+        context = super(MntGroupUserCV, self).get_context_data(**kwargs)
+
+        mntgrp = MntGroup.objects.filter(id=mntgrp_id)
+        context['mntgrpnm'] = mntgrp
+
+        #mntgrp = list(MntGroup.objects.filter(id=mntgrp_id).values('mnt_group_nm'))
+        #context['mntgrpnm'] = mntgrp[0]
+
+        return context
+
+
+    def form_valid(self, form):
+        mntgrp_id = self.kwargs['pk']
+        pjt_id = self.kwargs['pjtid']
+
+        user = User.objects.filter(username=self.request.POST['username'])
+
+        print(mntgrp_id)
+        print(pjt_id)
+        print(user)
+
+        if user.count() < 1 :
+            print ('없는 사용자 입니다. ');
+
+
+        else:
+
+            form.save(pjt_id, mntgrp_id, self.request.POST['username'])
+            print('사용자를 등록하겠습니다. ');
+
+        return super(MntGroupUserCV, self).form_valid(form)
+
+        #self.request.pk
+        #mntgrp_id = self.kwargs['pk']
+        #pjt_id = self.kwargs['pjtid']
+        #mnt = MntGroup.objects.filter(id=mntgrp_id)
+        #pjt = Sqlcproject.objects.filter(id=mntgrp_id)
+        #user = auth.User.objects.filter(email=request.)
+
+
+    """
+    def get_context_data(self, **kwargs):
+        mntgrp_id = self.kwargs['pk']
+        context = super(MntGroupUserCV, self).get_context_data(**kwargs)
+        mntgrp = MntGroup.objects.filter(id=mntgrp_id)
+        context["userlist"] = MntGroupUser.objects.filter(mntgroup=mntgrp)
+        context["serverlist"] = MntGroupUser.objects.filter(mntgroup=mntgrp)
+
+        return context
+
+    """
+    """
+    def get_form_kwargs(self, **kwargs):
+
+        pjtid = self.kwargs['pk']
+
+        print('pjtid = %s', pjtid)
+
+        # 초기값으로 셋팅
+        self.initial = {'project': SqlcProject.objects.get(id=pjtid)  # 디폴트로 소속프로젝트 값 셋팅
+                        }
+        kwargs = super(MntGroupCV,self).get_form_kwargs(**kwargs)
+
+        kwargs['pjtid'] = pjtid
+
+        return kwargs
+
+
+    def form_valid(self, form):
+        print(" Debug :")
+        form.instance.owner = self.request.user
+
+        return super(MntGroupCV, self).form_valid(form)
+
+    def form_invalid(self, form):
+        print("form is invalid")
+        
+    """
 
 
 
 class MntGroupServerCV(LoginRequiredMixin, CreateView):
-    pass
+
+    form_class = MntGroupServerForm
+    template_name = 'pjtmgmt/add_mntgrpserver.html'
+
+    def get_success_url(self):
+        return reverse_lazy('addmntserver', kwargs={'pk': self.kwargs['pk'], 'pjtid': self.kwargs['pjtid']})
+
+
+
+    def get_context_data(self, **kwargs):
+        mntgrp_id = self.kwargs['pk']
+        context = super(MntGroupServerCV, self).get_context_data(**kwargs)
+
+        mntgrp = MntGroup.objects.filter(id=mntgrp_id)
+
+        context['mntgrpnm'] = mntgrp
+
+        return context
+
+
+
+    def get_form_kwargs(self, **kwargs):
+        mntid = self.kwargs['pk']
+        pjtid = self.kwargs['pjtid']
+
+        print('pjtid = %s', pjtid)
+        print('mntid = %s', mntid)
+
+        # 초기값으로 셋팅
+        self.initial = {'project': SqlcProject.objects.get(id=pjtid),  # 디폴트로 소속프로젝트 값 셋팅
+                        'mntgroup' : MntGroup.objects.get(id=mntid) ,
+                        'ava_server' : MntServer.objects.filter(project=SqlcProject.objects.get(id=pjtid))
+                        }
+
+        kwargs = super(MntGroupServerCV, self).get_form_kwargs(**kwargs)
+
+        kwargs['pjtid'] = pjtid
+        kwargs['mntid'] = mntid
+
+        return kwargs
+    

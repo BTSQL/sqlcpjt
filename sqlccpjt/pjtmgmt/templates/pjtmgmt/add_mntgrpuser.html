@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block divinfo %} <div id="wrap" ><!-- wrap start --> {% endblock %}
+{% block content %}
+<section class="contents"><!-- contents start -->
+<form action="." method="post"> {% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.source.errors }}
+  {{ form.source }}
+
+
+{% for mnt in mntgrpnm %}
+
+    <h2 class="level2">{{ mnt.mnt_group_nm }} 모니터링 그룹 사용자 추가 </h2>
+    <table class="type2 mt30"><!-- table start -->
+    <caption>table</caption>
+    <colgroup>
+	    <col style="width:220px" />
+	    <col style="width:*" />
+    </colgroup>
+    <tbody>
+    <tr>
+	    <th scope="row"> 사용자 email 입력 </th>
+        <td>{{ form.username.errors }} {{ form.username }} </td>
+    </tr>
+    </tbody>
+    </table><!-- table end -->
+
+    <ul class="center_btns">
+    <li> <button class="btn big btn_orange" type="submit">사용자 추가 </button></li>
+    </ul>
+    </br>
+
+    <ul class="list_style"><!-- list_style start -->
+        <h2 class="level2"> 등록 사용자 리스트 </h2> </br></br>
+        {% for mntuser in mnt.mntgroupuser_set.all %}
+        <li> <strong> {{ mntuser.mntUser }} </strong> <p class="subject"><a href=""> 유저정보&nbsp;:&nbsp;<span> {{ mntuser.mntUser.username }} </a></p> </li>
+        {% endfor %}
+        </br></br></br>
+
+        <h2 class="level2"> 등록 서버 리스트 </h2>
+        {% for mntserver in mnt.mntgroupserver_set.all %}
+        <li><strong> {{ mntserver.ava_server.server_nm }}  </strong> <p class="subject"> <a href="#"> 서버IP정보 :&nbsp;<span> {{ mntserver.ava_server.db_server_ip}} &nbsp;&nbsp; </span> 생성일:&nbsp;  <span> {{ mntserver.ava_server.created_dt }} </span> </a></p></li>
+        {% endfor %}
+        </br>
+    </ul> <!-- list_style end -->
+
+{% endfor %}
+
+</form>
+</section><!-- contents end -->
+
+<!-- </section> --> <!-- container end -->
+<hr />
+{% endblock %}

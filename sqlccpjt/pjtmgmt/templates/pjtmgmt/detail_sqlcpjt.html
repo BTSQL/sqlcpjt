@@ -61,25 +61,26 @@
 	<strong> {{ mnt.mnt_group_nm }}  </strong>
     <p class="subject"><a href="{% url 'detailmntgrp' mnt.id %}"> 그룹정보 :&nbsp;<span> {{ mnt.mnt_group_desc}} </a></p>
 	<ul class="right_btns">
-		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 사용자 추가 <span class="icon_plus_white"> </span> </a></p></li>
-		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버 추가 <span class="icon_plus_white"></span></a></p></li>
+		<li><p class="btn btn_blue"><a href="{% url 'addmntuser' mnt.id object.id %}"> 사용자 추가 <span class="icon_plus_white"> </span> </a></p></li>
+		<li><p class="btn btn_green"><a href="{% url 'addmntserver' mnt.id object.id  %}"> 서버 추가 <span class="icon_plus_white"></span></a></p></li>
 		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 그룹명 변경 <span class="icon_plus_white"> </span> </a></p></li>
 		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">그룹삭제<span class="icon_plus_white"></span></a></p></li>
 	</ul>
 </li>
 {% endfor %}
 </br>
+</br></br>
 
 
-<h2 class="level2"> 서버 리스트 </h2>
+<h2 class="level2"> 프로젝트 내 등록 서버 리스트 </h2>
 {% for mnt in object.mntserver_set.all %}
 <li>
 	<strong> {{ mnt.server_nm }}  </strong>
     <p class="subject"><a href="#"> 서버IP정보 :&nbsp;<span> {{ mnt.db_server_ip}} &nbsp;&nbsp; </span> 생성일:&nbsp;  <span> {{ mnt.created_dt }} </span> </a></p>
 	<p class="date">유효여부 : <span> {{ mnt.is_available }} </span></p>
 	<ul class="right_btns">
-		<li><p class="btn btn_blue"><a href="{% url 'updateserver' mnt.id %}"> 서버수정 <span class="icon_plus_white"> </span> </a></p></li>
-		<li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버삭제<span class="icon_plus_white"></span></a></p></li>
+		<li><p class="btn btn_blue"><a href="{% url 'delserver' mnt.id %}"> 서버 삭제 <span class="icon_plus_white"> </span> </a></p></li>
+		<!-- <li><p class="btn btn_green"><a href="{% url 'delserver' mnt.id %}">서버삭제<span class="icon_plus_white"></span></a></p></li> -->
 	</ul>
 </li>
 {% endfor %}

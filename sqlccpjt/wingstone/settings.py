@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sqlclogin.apps.SqlcloginConfig',
     'pjtmgmt.apps.PjtmgmtConfig',
+    'apprmgmt.apps.ApprmgmtConfig',
+    'dbmnt.apps.DbmntConfig',
 ]
 
 MIDDLEWARE = [
